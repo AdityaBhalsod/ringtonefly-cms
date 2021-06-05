@@ -14,7 +14,6 @@ $("#downloadRingtone").click(function (e) {
                 if (data.download) {
                     $("#downloadCount").text("  " + data.download);
                 }
-                window.location.href = $('#ringtone_url').val();
             }
         });
     }

@@ -9,9 +9,9 @@
     <div class="menu">
         <div class="navmenu flex vcenter">
             <ul class="flex">
-                {% show_menu 0 10 10 10 "navbar/menu.html" %}
+                {% show_menu 0 10 10 10 "navbar/menu-desktop.html" %}
             </ul>
-            {% if "Home" in request.current_page.get_title %}
+            {% if "Home" in request.current_page.get_menu_title %}
             <div class="searchbtn">
                 <i class="fa fa-search"></i>
             </div>
@@ -20,13 +20,12 @@
     </div>
 </nav>
 
-
-<div class="mobilemenu">
+<div class="mobilemenu" style="margin-top: 50px;">
     <ul>
-        {% show_menu 0 10 10 10 "navbar/menu.html" %}
+        {% show_menu 0 10 10 10 "navbar/menu-mobile.html" %}
     </ul>
 </div>
-{% if "Home" in request.current_page.get_title %}
+{% if "Home" in request.current_page.get_menu_title %}
 <div class="search-input">
     <form action="javascript:void(0)" method="GET" class="flex space-between">
         <input type="hidden" id="searchURL" value="{% url 'search_ringtone' %}">

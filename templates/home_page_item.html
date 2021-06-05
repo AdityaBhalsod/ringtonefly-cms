@@ -36,9 +36,9 @@
                         <span class="track">
                             <audio id="audio" controls>
                                 {% if item1.android_ringtone_file %}
-                                <source src="{{item1.android_ringtone_file.url}}" type="{{item1.android_ringtone_file.file.read|get_mime_type}}">
+                                <source src="{{item1.android_ringtone_file.url}}" type="audio/mpeg">
                                 {% else %}
-                                <source src="{{item1.iphone_ringtone_file.url}}" type="{{item1.android_ringtone_file.file.read|get_mime_type}}">
+                                <source src="{{item1.iphone_ringtone_file.url}}" type="audio/x-m4r">
                                 {% endif %}
                             </audio>
                         </span>
@@ -69,9 +69,9 @@
                         <span class="track">
                             <audio id="audio" controls>
                                 {% if item2.android_ringtone_file %}
-                                <source src="{{item2.android_ringtone_file.url}}" type="{{item2.android_ringtone_file.file.read|get_mime_type}}">
+                                <source src="{{item2.android_ringtone_file.url}}" type="audio/mpeg">
                                 {% else %}
-                                <source src="{{item2.iphone_ringtone_file.url}}" type="{{item2.android_ringtone_file.file.read|get_mime_type}}">
+                                <source src="{{item2.iphone_ringtone_file.url}}" type="audio/x-m4r">
                                 {% endif %}
                             </audio>
                         </span>
@@ -103,9 +103,9 @@
                         <span class="track">
                             <audio id="audio" controls>
                                 {% if item3.ringtone.android_ringtone_file %}
-                                <source src="{{item3.ringtone.android_ringtone_file.url}}" type="{{ringtone.android_ringtone_file.file.read|get_mime_type}}">
+                                <source src="{{item3.ringtone.android_ringtone_file.url}}" type="audio/mpeg">
                                 {% else %}
-                                <source src="{{item3.ringtone.iphone_ringtone_file.url}}" type="{{ringtone.android_ringtone_file.file.read|get_mime_type}}">
+                                <source src="{{item3.ringtone.iphone_ringtone_file.url}}" type="audio/x-m4r">
                                 {% endif %}
                             </audio>
                         </span>

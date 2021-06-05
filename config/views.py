@@ -104,7 +104,7 @@ def search_ringtone(request):
                     "category_name": item.category.name,
                     "ringtone_url": item.page.get_public_url(),
                     "ringtone_media_url": ringtone_file.url,
-                    "ringtone_type": magic.from_buffer(ringtone_file.file.read(),mime=True),
+                    "ringtone_type": "audio/mpeg" if item.android_ringtone_file else "audio/audio/x-m4r",
                     "ringtone_name": item.name,
                     "ringtone_download_count": item.download_count,
                 }

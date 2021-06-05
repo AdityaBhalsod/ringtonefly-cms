@@ -13,10 +13,10 @@
                         <audio id="audio" controls>
                             {% if ringtone.android_ringtone_file %}
                             <source src="{{ringtone.android_ringtone_file.url}}"
-                                type="{{ringtone.android_ringtone_file.file.read|get_mime_type}}">
+                                type="audio/mpeg">
                             {% else %}
                             <source src="{{ringtone.iphone_ringtone_file.url}}"
-                                type="{{ringtone.android_ringtone_file.file.read|get_mime_type}}">
+                                type="audio/x-m4r">
                             {% endif %}
                         </audio>
                     </span>

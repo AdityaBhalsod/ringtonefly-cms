@@ -1,4 +1,9 @@
-{% load helping_filter %}
+{% load helping_filter sekizai_tags %}
+
+{% addtoblock "category_tag" %}
+{{ current_category_object.meta_tag|safe }}
+{% endaddtoblock %}
+
 {% if current_category_ringtone %}
 <div class="container">
     <div class="ringtone-area flex space-around flex-wrap">
@@ -10,9 +15,9 @@
                 <span class="track">
                     <audio id="audio" controls>
                         {% if ringtone.android_ringtone_file %}
-                        <source src="{{ringtone.android_ringtone_file.url}}" type="{{ringtone.android_ringtone_file.file.read|get_mime_type}}">
+                        <source src="{{ringtone.android_ringtone_file.url}}" type="audio/mpeg">
                         {% else %}
-                        <source src="{{ringtone.iphone_ringtone_file.url}}" type="{{ringtone.android_ringtone_file.file.read|get_mime_type}}">
+                        <source src="{{ringtone.iphone_ringtone_file.url}}" type="audio/x-m4r">
                         {% endif %}
                     </audio>
                 </span>

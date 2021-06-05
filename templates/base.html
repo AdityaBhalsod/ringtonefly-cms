@@ -1,10 +1,10 @@
-{% load cms_tags menu_tags sekizai_tags static %}
+{% load cms_tags menu_tags sekizai_tags static helping_filter %}
 <!doctype html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,shrink-to-fit=no">    
     {% if site_config and site_config.favicon.url %}
     <link rel="shortcut icon" href="{{site_config.favicon.url}}" type="image/x-icon">
     {% endif %}
@@ -13,9 +13,9 @@
     <!-- All meta tag for current site -->
     {% render_block "og_twitter_tag" %}
     {% include "metatag.html" %} 
-    <meta name="keywords" content="{% if seo and seo.common_keywords %}{{seo.common_keywords}}{% endif %} {% render_block 'meta_keywords_tag' %}" />
-    <meta name="description" content="{% if seo and seo.common_description %}{{seo.common_description}}{% endif %} {% render_block 'meta_description_tag' %}" />
-    {% if seo and seo.home_page_meta_tag and "Home" in request.current_page.get_title %}{{seo.home_page_meta_tag|safe}}{% endif %}
+    {% render_block "ringtone_tag" %}
+    {% render_block "category_tag" %}
+    {% if seo and seo.home_page_meta_tag and "Home" in request|get_title %}{{seo.home_page_meta_tag|safe}}{% endif %}
     <!-- All meta tag for current site -->
     <!-- ################################################################################################################ -->
     
@@ -25,8 +25,27 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <title>{% if site_config %}{{site_config.site_name}} | {% endif %}{% block title %}{% endblock title %}</title>
+
+    
+     
+    <title>{% if "Home" in request.current_page.get_menu_title %}Download Ringtone New Mp3 or M4r{% else %}{% block title %}{% endblock title %}{% endif %} » {% if site_config %}{{site_config.site_title}}{% endif %}</title>
     {% render_block "css" %}
+
+    {% if "Home" in request.current_page.get_menu_title %}
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org/",
+          "@type": "WebSite",
+          "name": "RingtoneFly",
+          "url": "https://ringtonefly.co",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://ringtonefly.co/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        }
+    </script>
+    {% endif %}
 </head>
 
 <body>
@@ -102,20 +121,6 @@
     </script>
     <!-- End Google Analytics -->
     {% endif %}
-
-    <script type="application/ld+json">
-        {
-          "@context": "https://schema.org/",
-          "@type": "WebSite",
-          "name": "RingtoneFly",
-          "url": "https://www.ringtonefly.co",
-          "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://www.ringtonefly.co/search?q={search_term_string}",
-            "query-input": "required name=search_term_string"
-          }
-        }
-    </script>
 </body>
 
 </html>

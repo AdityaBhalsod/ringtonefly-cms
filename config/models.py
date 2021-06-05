@@ -13,10 +13,17 @@ from django.contrib import admin
 from django.core.validators import FileExtensionValidator
 
 
-def audio_file_extension_validator():
+def audio_android_file_extension_validator():
     return [
         FileExtensionValidator(
-            allowed_extensions=["mp3", "amr", "mp4", "m4a", "m4r", "ogg", "wav", "aac"]
+            allowed_extensions=["mp3"]
+        )
+    ]
+
+def audio_iphone_file_extension_validator():
+    return [
+        FileExtensionValidator(
+            allowed_extensions=["m4r"]
         )
     ]
 
@@ -65,6 +72,7 @@ class Category(BaseModel):
     name = models.CharField(_("Name"), max_length=255, help_text="Name of category")
     title = models.ForeignKey(Title, blank=True, null=True, on_delete=models.SET_NULL)
     page = models.ForeignKey(Page, blank=True, null=True, on_delete=models.SET_NULL)
+    meta_tag = models.TextField(_("Meta tag"),default="", blank=True, null=True)
     slug = models.SlugField(
         max_length=255, unique=True, default="", null=True, blank=True
     )
@@ -169,14 +177,14 @@ class Ringtone(BaseModel):
         upload_to="android/",
         blank=True,
         null=True,
-        validators=audio_file_extension_validator(),
+        validators=audio_android_file_extension_validator(),
     )
     iphone_ringtone_file = models.FileField(
         _("Iphone ringtone"),
         upload_to="iphone/",
         blank=True,
         null=True,
-        validators=audio_file_extension_validator(),
+        validators=audio_iphone_file_extension_validator(),
     )
     image = models.FileField(
         _("Image"),
@@ -403,6 +411,12 @@ class SiteConfig(BaseModel):
         help_text="Please add google captcha webkey.",
         null=True,
         blank=True,
+    )
+    site_title = models.CharField(
+        _("Site tite"),
+        default="",
+        max_length=255,
+        help_text="Please enter a site title.",
     )
     site_name = models.CharField(
         _("Site name"),

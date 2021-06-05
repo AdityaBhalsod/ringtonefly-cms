@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+Disallow: /ringtone-admin/
+Disallow: /search
+Disallow: /static
+Disallow: /media
+
+User-agent: turnitinbot
+User-agent: NPBot
+User-agent: ia_archiver
+User-agent: webzip
+User-agent: OmniExplorer_Bot
+User-agent: BoardReader
+Disallow: /
+
+Sitemap: https://ringtonefly.co/sitemap.xml

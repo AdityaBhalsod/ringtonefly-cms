@@ -1,6 +1,6 @@
 from django import template
 from django.utils.safestring import mark_safe
-import magic
+
 
 register = template.Library()
 
@@ -21,8 +21,8 @@ def breadcrumb(request):
     </li>
     """
     new_url = []
+    i = 1
     if url:
-        i = 1
         for item in url.split("/"):
             if not item or "?" in item or "en" in item:
                 continue
@@ -37,8 +37,11 @@ def breadcrumb(request):
                     <meta itemprop="position" content="{i}" />
                 </li>
                 """
-    return mark_safe(html)
-
+    
+    if i is 1:
+        return mark_safe("""""")
+    else:
+        return mark_safe(html)
 
 @register.filter
 def convert_into_tag(request):
@@ -55,8 +58,8 @@ def convert_into_tag(request):
     return ",".join(item for item in tags)
 
 @register.filter
-def get_mime_type(file):
-    """
-    Get MIME by reading the header of the file
-    """
-    return magic.from_buffer(file,mime=True) 
+def get_title(request):
+    if request.current_page.get_menu_title():
+        return str(request.current_page.get_menu_title())
+    else:
+        return str(request.current_page.get_title())

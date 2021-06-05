@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from .models import (
     AboutUsPlugin,
+    Category,
     CategoryPanelPlugin,
     ContactUsPlugin,
     ContainerPlugin,
@@ -98,6 +99,9 @@ class FetchRingtone(CMSPluginBase):
         context["current_category_ringtone"] = Ringtone.objects.filter(
             category__slug=context["request"].current_page.get_slug()
         )
+        context["current_category_object"] = Category.objects.filter(
+            slug=context["request"].current_page.get_slug()
+        ).last()        
         return context
 
 
