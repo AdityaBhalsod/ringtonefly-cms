@@ -38,7 +38,7 @@ def breadcrumb(request):
                 </li>
                 """
     
-    if i is 1:
+    if i == 1:
         return mark_safe("""""")
     else:
         return mark_safe(html)

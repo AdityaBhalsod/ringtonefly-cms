@@ -308,6 +308,7 @@ nav .brandname a {
     padding         : 10px 25px;
     display         : none;
     position        : fixed;
+    z-index         : 5;
 }
 
 .search-input input[type="text"] {
