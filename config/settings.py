@@ -37,12 +37,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [os.getenv("DJANGO_ALLOWED_HOSTS", "*")]
 
-
-# Application definition
-
-
 ROOT_URLCONF = "config.urls"
-
 
 WSGI_APPLICATION = "config.wsgi.application"
 
@@ -67,7 +62,7 @@ LANGUAGE_CODE = "en"
 
 TIME_ZONE = "Asia/Kolkata"
 
-USE_I18N = True
+USE_I18N = False
 
 USE_L10N = True
 
@@ -79,12 +74,12 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 MEDIA_URL = "/media/"
+
 MEDIA_ROOT = os.path.join(DATA_DIR, "media")
 STATIC_ROOT = os.path.join(DATA_DIR, "static")
-
+ 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "staticfiles"),)
 SITE_ID = 1
-
 
 TEMPLATES = [
     {
@@ -185,6 +180,8 @@ CUSTOM_PLUGIN_APPS = [
     "ads_txt",
 ]
 
+
+# Application definition
 INSTALLED_APPS = CMS_APPS + CUSTOM_PLUGIN_APPS + EXTRA_PLUGIN_APPS
 
 LANGUAGES = (
@@ -226,18 +223,26 @@ CMS_PLACEHOLDER_CONF = {}
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES: Dict[str, Dict[str, Union[str, int]]] = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "HOST": "localhost",
-        "NAME": "ringtone-fly",
-        "USER": "ringtone-user",
-        "PASSWORD": "password",
-        "PORT": "3306",
-        "CONN_MAX_AGE": 500,
-        "ATOMIC_REQUESTS": True,
+if os.getenv("DATABASE_HOST") and os.getenv("DATABASE_USER") and os.getenv("DATABASE_PASSWORD") and os.getenv("DATABASE_NAME"):
+    DATABASES: Dict[str, Dict[str, Union[str, int]]] = {
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "HOST": os.getenv("DATABASE_HOST"),
+            "NAME": os.getenv("DATABASE_NAME"),
+            "USER": os.getenv("DATABASE_USER"),
+            "PASSWORD": os.getenv("DATABASE_PASSWORD"),
+            "PORT": "3306",
+            "CONN_MAX_AGE": 500,
+            "ATOMIC_REQUESTS": True,
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, "db.sqlite3"),
+        }
+    }
 
 THUMBNAIL_PROCESSORS = (
     "easy_thumbnails.processors.colorspace",
@@ -247,9 +252,9 @@ THUMBNAIL_PROCESSORS = (
 )
 
 SUPER_USER = {
-    "ADMIN_EMAIL": "admin@ringtonefly.com",
-    "ADMIN_USERNAME": "ringtonefly",
-    "ADMIN_PASSWORD": "password@123",
+    "ADMIN_EMAIL": os.getenv("ADMIN_EMAIL"),
+    "ADMIN_USERNAME":os.getenv("ADMIN_USERNAME"),
+    "ADMIN_PASSWORD": os.getenv("ADMIN_PASSWORD")
 }
 
 

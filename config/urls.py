@@ -34,9 +34,9 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     path("ringtone-admin/", admin.site.urls),
     path("", include("cms.urls")),
+    prefix_default_language=False
 )
 
 # This is only needed when using runserver.
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
