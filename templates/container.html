@@ -1,0 +1,21 @@
+{% if site_config.ads_script %}
+<div class="container">
+    <div class="ad-container">
+        {{site_config.ads_script|safe}}
+    </div>
+</div>
+{% endif %}
+<div class="content-area">
+    <div class="container2">
+        <h1>{{container.title}}</h1>
+        <div class="update">Update Date: {{container.updated_at}}</div>
+        <section>{{container.content|safe}}</section>
+    </div>
+</div>
+{% if site_config.ads_script %}
+<div class="container">
+    <div class="ad-container">
+        {{site_config.ads_script|safe}}
+    </div>
+</div>
+{% endif %}

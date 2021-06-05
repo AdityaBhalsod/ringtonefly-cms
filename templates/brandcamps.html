@@ -1,0 +1,6 @@
+{% load helping_filter %}
+<div id="breadcrumb" style="margin-bottom: 15px;">
+    <ol itemscope itemtype="http://schema.org/BreadcrumbList" class="bc-ul flex vcenter">
+        {{request|breadcrumb}}
+    </ol>
+</div>

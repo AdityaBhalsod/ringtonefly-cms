@@ -1,0 +1,89 @@
+.close-share {
+    font-size: 8px;
+    padding: 5px 6px;
+    position: absolute;
+    left: 00px;
+    top: 0;
+    background: #fff;
+}
+
+.close-share i {
+    font-size: 20px;
+    color: var(--green);
+}
+
+.modale:before {
+    content: "";
+    display: none;
+    background: rgba(0, 0, 0, .6);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10
+}
+
+.opened:before {
+    display: block
+}
+
+.opened .modal-dialog {
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0);
+    top: 27%
+}
+
+.modal-dialog {
+    background: #fefefe;
+    border: #333 solid 0;
+    border-radius: 5px;
+    margin-left: -150px;
+    text-align: center;
+    position: fixed;
+    left: 50%;
+    top: -100%;
+    z-index: 11;
+    width: 300px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .3);
+    -webkit-transform: translate(0, -500%);
+    -ms-transform: translate(0, -500%);
+    transform: translate(0, -500%);
+    -webkit-transition: -webkit-transform .3s ease-out;
+    -moz-transition: -moz-transform .3s ease-out;
+    -o-transition: -o-transform .3s ease-out;
+    transition: transform .3s ease-out;
+    height: 250px;
+}
+
+.modal-body .fa-whatsapp,
+.modal-body .fa-facebook,
+.modal-body .fa-twitter-square,
+.modal-body .fa-telegram {
+    font-size: 35px;
+    padding: 10px;
+    margin: 0px 5px;
+    box-shadow: 0px 10px 10px -5px rgb(0 0 0 / 20%);
+}
+
+.modal-body {
+    background: var(--white);
+}
+
+.modal-body .fa-whatsapp {
+    color: var(--green);
+}
+
+.modal-body .fa-facebook {
+    color: #4267B2;
+    padding: 10px 15px;
+}
+
+.modal-body .fa-twitter-square {
+    color: #1DA1F2;
+}
+
+.modal-body .fa-telegram {
+    color: #0088cc;
+}

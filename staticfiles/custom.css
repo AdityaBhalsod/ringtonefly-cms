@@ -1,0 +1,12 @@
+.red-message{
+    color: red !important;
+    font-family: 'Courier New', Courier, monospace;
+}
+.success-message{
+    color: green !important;
+    font-family: 'Courier New', Courier, monospace
+}
+
+::-webkit-scrollbar {
+    width: 5px;  /* Remove scrollbar space */
+}

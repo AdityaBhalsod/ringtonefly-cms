@@ -1,0 +1,20 @@
+<footer>
+    <div class='site-infoku'>
+        <div class="footmenu">
+            <ul class="flex flex-wrap center">
+                {% if footer and footer.footer_field.all %}
+                {% for instance in footer.footer_field.all %}
+                <li><a href="{{instance.link}}">{{instance.title}}</a></li>
+                {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+        Copyright &#169; {% now "Y" %}
+        {{footer.tagline}}<br />
+        {{footer.copyright}}
+        {% if site_config and site_config.site_name and site_config.site_url %}
+        <br />
+        Made with <i class='fa fa-heart'></i> <a href='{{site_config.site_url}}'>{{site_config.site_name}}</a>
+        {% endif %}
+    </div>
+</footer>

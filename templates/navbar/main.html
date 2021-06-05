@@ -1,0 +1,37 @@
+{% load cms_tags menu_tags sekizai_tags %}
+<nav class="flex space-between vcenter">
+    <div class="navbtn">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="brandname flex vcenter">
+        <i class="fa fa-music"></i><a href="/">{{site_config.site_name}}</a>
+    </div>
+    <div class="menu">
+        <div class="navmenu flex vcenter">
+            <ul class="flex">
+                {% show_menu 0 10 10 10 "navbar/menu.html" %}
+            </ul>
+            {% if "Home" in request.current_page.get_title %}
+            <div class="searchbtn">
+                <i class="fa fa-search"></i>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
+
+<div class="mobilemenu">
+    <ul>
+        {% show_menu 0 10 10 10 "navbar/menu.html" %}
+    </ul>
+</div>
+{% if "Home" in request.current_page.get_title %}
+<div class="search-input">
+    <form action="javascript:void(0)" method="GET" class="flex space-between">
+        <input type="hidden" id="searchURL" value="{% url 'search_ringtone' %}">
+        <input type="text" id="searchInput" placeholder="Search Ringtone">
+        <button id="searchBtn"><i class="fa fa-search"></i></button>
+    </form>
+</div>
+{% endif %}

@@ -1,0 +1,121 @@
+{% load cms_tags menu_tags sekizai_tags static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,shrink-to-fit=no">
+    {% if site_config and site_config.favicon.url %}
+    <link rel="shortcut icon" href="{{site_config.favicon.url}}" type="image/x-icon">
+    {% endif %}
+    
+    <!-- ################################################################################################################ -->
+    <!-- All meta tag for current site -->
+    {% render_block "og_twitter_tag" %}
+    {% include "metatag.html" %} 
+    <meta name="keywords" content="{% if seo and seo.common_keywords %}{{seo.common_keywords}}{% endif %} {% render_block 'meta_keywords_tag' %}" />
+    <meta name="description" content="{% if seo and seo.common_description %}{{seo.common_description}}{% endif %} {% render_block 'meta_description_tag' %}" />
+    {% if seo and seo.home_page_meta_tag and "Home" in request.current_page.get_title %}{{seo.home_page_meta_tag|safe}}{% endif %}
+    <!-- All meta tag for current site -->
+    <!-- ################################################################################################################ -->
+    
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'custom.css' %}">
+    <link rel="stylesheet" href="{% static 'share.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <title>{% if site_config %}{{site_config.site_name}} | {% endif %}{% block title %}{% endblock title %}</title>
+    {% render_block "css" %}
+</head>
+
+<body>
+    {% cms_toolbar %}
+    {% include "navbar/main.html" %}
+    {% include "brandcamps.html" %}
+
+
+    <div class="container" id="searchContainer" hidden>
+        <div class="sresult">
+            <div class="result">
+                <p>Search result for : <span id="searchQuery"></span></p>
+            </div>
+        </div>
+
+        {% if site_config.ads_script %}
+        <div class="container">
+            <div class="ad-container">
+                {{site_config.ads_script|safe}}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="ringtone-area flex space-around flex-wrap" id="searchResult" style="display: none;">
+        </div>
+
+        <!-- TODO -->
+        <div class="loadm flex center" id="searchloadMoreBtn" style="display: none;">
+            <a href="javascript:void(0)" id="loadMore4"> Load More</a>
+        </div>
+
+        <!-- Ad -->
+        {% if site_config.ads_script %}
+        <div class="container">
+            <div class="ad-container">
+                {{site_config.ads_script|safe}}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    
+
+    {% block content %}
+    {% endblock content %}
+    {% include "footer.html" %}
+    {% render_block "js" %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'custom.js' %}"></script>
+    <script src="{% static 'app.js' %}"></script>
+    <script src="{% static 'share.js' %}"></script>
+    <script src="{% static 'player.js' %}"></script>
+    <script src="{% static 'loadmore.js' %}"></script>
+
+    {% if site_config and site_config.bottem_ads_script %}
+    <div id="_adBottom">
+        {{site_config.bottem_ads_script|safe}}
+    </div>
+    {% endif %}
+
+
+    {% if site_config and site_config.analytics_id %}
+    <!-- Google Analytics -->
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', '{{site_config.analytics_id}}', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <!-- End Google Analytics -->
+    {% endif %}
+
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org/",
+          "@type": "WebSite",
+          "name": "RingtoneFly",
+          "url": "https://www.ringtonefly.co",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://www.ringtonefly.co/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        }
+    </script>
+</body>
+
+</html>

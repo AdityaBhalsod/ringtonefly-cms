@@ -1,0 +1,35 @@
+<div class="container3">
+    <div class="contact_us">
+        <h2>{{contact_us.title}}</h2>
+        <p>{{contact_us.tagline}}</p>
+
+        <form action="{% url 'contact_us_submit' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="current_url" value="{{request.path}}">
+            <input type="text" name="name" placeholder="Your name" required>
+            <input type="email" name="email" placeholder="Email address" required>
+            <input type="text" name="subject" placeholder="Subject" required>
+            <textarea name="message" id="msg" cols="30" rows="3" placeholder="Message" required></textarea>
+            {% if site_config and site_config.google_captcha_webkey %}
+            <button class="g-recaptcha" data-sitekey="{{site_config.google_captcha_webkey}}" data-callback='onSubmit'
+                data-action='submit'>Submit</button>
+            {% endif %}
+            <input type="submit" id="btn" value="Send">
+        </form>
+
+        {% if request.session.error_message %}
+        <p class="red-message">Error : {{request.session.error_message}}</p>
+        {% elif request.session.success_message %}
+        <p class="success-message">Success : {{request.session.success_message}}</p>
+        {% endif %}
+    </div>
+</div>
+
+{% if site_config.google_captcha_webkey %}
+<script src="https://www.google.com/recaptcha/api.js"></script>
+<script>
+    function onSubmit(token) {
+        document.getElementById("demo-form").submit();
+    }
+</script>
+{% endif %}

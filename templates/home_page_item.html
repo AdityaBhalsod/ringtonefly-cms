@@ -1,0 +1,139 @@
+{% load helping_filter %}
+{% if instance %}
+<div class="container">
+    <div class="cat-area">
+        <div class="cat-list">
+            <ul class="flex center">
+                <li>
+                    <a href="javascript:void(0)" data-tab="tab1" class="tab-link active">Popular</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" data-tab="tab2" class="tab-link">New</a>
+                </li>
+                {% if instance and instance.top50_field.all %}
+                <li>
+                    <a href="javascript:void(0)" data-tab="tab3" class="tab-link">Top 50</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    {% if site_config.ads_script %}
+    <div class="container">
+        <div class="ad-container">
+            {{site_config.ads_script|safe}}
+        </div>
+    </div>
+    {% endif %}
+    <div class="tab-pane">
+        <div class="tab-panel active" id="tab1">
+            <div class="ringtone-area flex space-around flex-wrap">
+                {% for item1 in popular_ringtones %}
+                <div class="ringtone-player flex vcenter blogBox1 moreBox1" style="display: none;">
+                    <div class="play-btn">
+                        <i class="fa fa-play-circle"></i>
+                        <i class="fa fa-snowflake-o"></i>
+                        <span class="track">
+                            <audio id="audio" controls>
+                                {% if item1.android_ringtone_file %}
+                                <source src="{{item1.android_ringtone_file.url}}" type="{{item1.android_ringtone_file.file.read|get_mime_type}}">
+                                {% else %}
+                                <source src="{{item1.iphone_ringtone_file.url}}" type="{{item1.android_ringtone_file.file.read|get_mime_type}}">
+                                {% endif %}
+                            </audio>
+                        </span>
+                    </div>
+                    <div class="ringtone-info">
+                        <div class="categoryName"><a
+                                href="{{item1.category.get_public_url}}">{{item1.category.name}}</a>
+                        </div>
+                        <div class="ringtoneName">
+                            <h2><a href="{{item1.page.get_public_url}}">{{item1.name}}</a></h2>
+                        </div>
+                        <div class="download-info"><b>{{item1.download_count}}</b> - Downloads</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="loadm flex center">
+                <a href="javascript:void(0)" id="loadMore1"> Load More</a>
+            </div>
+        </div>
+        <div class="tab-panel" id="tab2">
+            <div class="ringtone-area flex space-around flex-wrap">
+                {% for item2 in new_ringtones %}
+                <div class="ringtone-player flex vcenter blogBox2 moreBox2" style="display: none;">
+                    <div class="play-btn">
+                        <i class="fa fa-play-circle"></i>
+                        <i class="fa fa-snowflake-o"></i>
+                        <span class="track">
+                            <audio id="audio" controls>
+                                {% if item2.android_ringtone_file %}
+                                <source src="{{item2.android_ringtone_file.url}}" type="{{item2.android_ringtone_file.file.read|get_mime_type}}">
+                                {% else %}
+                                <source src="{{item2.iphone_ringtone_file.url}}" type="{{item2.android_ringtone_file.file.read|get_mime_type}}">
+                                {% endif %}
+                            </audio>
+                        </span>
+                    </div>
+                    <div class="ringtone-info">
+                        <div class="categoryName"><a
+                                href="{{item2.category.get_public_url}}">{{item2.category.name}}</a>
+                        </div>
+                        <div class="ringtoneName">
+                            <h2><a href="{{item2.page.get_public_url}}">{{item2.name}}</a></h2>
+                        </div>
+                        <div class="download-info"><b>{{item2.download_count}}</b> - Downloads</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="loadm flex center">
+                <a href="javascript:void(0)" id="loadMore2"> Load More</a>
+            </div>
+        </div>
+        {% if instance and instance.top50_field.all %}
+        <div class="tab-panel" id="tab3">
+            <div class="ringtone-area flex space-around flex-wrap">
+                {% for item3 in instance.top50_field.all %}
+                <div class="ringtone-player flex vcenter blogBox3 moreBox3" style="display: none;">
+                    <div class="play-btn">
+                        <i class="fa fa-play-circle"></i>
+                        <i class="fa fa-snowflake-o"></i>
+                        <span class="track">
+                            <audio id="audio" controls>
+                                {% if item3.ringtone.android_ringtone_file %}
+                                <source src="{{item3.ringtone.android_ringtone_file.url}}" type="{{ringtone.android_ringtone_file.file.read|get_mime_type}}">
+                                {% else %}
+                                <source src="{{item3.ringtone.iphone_ringtone_file.url}}" type="{{ringtone.android_ringtone_file.file.read|get_mime_type}}">
+                                {% endif %}
+                            </audio>
+                        </span>
+                    </div>
+                    <div class="ringtone-info">
+                        <div class="categoryName">
+                            <a href="{{item3.ringtone.category.get_public_url}}">{{item3.ringtone.category.name}}</a>
+                        </div>
+                        <div class="ringtoneName">
+                            <h2><a href="{{item3.ringtone.page.get_public_url}}">{{item3.ringtone.name}}</a></h2>
+                        </div>
+                        <div class="download-info"><b>{{item3.ringtone.download_count}}</b> - Downloads</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="loadm flex center">
+                <a href="javascript:void(0)" id="loadMore3"> Load More</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    {% if site_config.ads_script %}
+    <div class="container">
+        <div class="ad-container">
+            {{site_config.ads_script|safe}}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endif %}

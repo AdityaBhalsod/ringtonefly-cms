@@ -1,0 +1,41 @@
+{% load helping_filter %}
+<div class="container3">
+    <div class="post-in-popular">
+        <h2 class="pop">Popular Ringtone</h2>
+        {% if popular_ringtones %}
+        <div class="ringtone-area flex space-around flex-wrap">
+            {% for ringtone in popular_ringtones %}
+            <div class="ringtone-player flex vcenter blogBox5 moreBox5" style="display: none;">
+                <div class="play-btn">
+                    <i class="fa fa-play-circle"></i>
+                    <i class="fa fa-snowflake-o"></i>
+                    <span class="track">
+                        <audio id="audio" controls>
+                            {% if ringtone.android_ringtone_file %}
+                            <source src="{{ringtone.android_ringtone_file.url}}"
+                                type="{{ringtone.android_ringtone_file.file.read|get_mime_type}}">
+                            {% else %}
+                            <source src="{{ringtone.iphone_ringtone_file.url}}"
+                                type="{{ringtone.android_ringtone_file.file.read|get_mime_type}}">
+                            {% endif %}
+                        </audio>
+                    </span>
+                </div>
+                <div class="ringtone-info">
+                    <div class="categoryName"><a
+                            href="{{ringtone.category.get_public_url}}">{{ringtone.category.name}}</a>
+                    </div>
+                    <div class="ringtoneName">
+                        <h2><a href="{{ringtone.page.get_public_url}}">{{ringtone.name}}</a></h2>
+                    </div>
+                    <div class="download-info"><b>{{ringtone.download_count}}</b> - Downloads</div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="loadm flex center">
+                <a href="javascript:void(0)" id="loadMore5"> Load More</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>

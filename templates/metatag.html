@@ -1,0 +1,20 @@
+{% if seo and seo.noindex %}
+<meta name="robots" content="noindex">
+{% else %}
+
+{% if seo.meta_field.all %}
+{% for instance in seo.meta_field.all %}
+<meta {{instance.tag_name}}="{{instance.tag_value}}" content="{{instance.content}}" />
+{% endfor %}
+{% endif %}
+
+{% if seo.canonicalization %}
+<link rel="canonical" href="{{seo.canonicalization_url}}{{request.path}}">
+{% endif %}
+
+{% if seo.link_field.all %}
+{% for instance in seo.link_field.all %}
+<link rel="{{instance.rel}}" href="{{instance.href}}" {% if instance.crossorigin %}crossorigin{% endif %} />
+{% endfor %}
+{% endif %}
+{% endif %}
