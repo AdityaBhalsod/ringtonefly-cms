@@ -1,7 +1,6 @@
 //increment download
 $("#downloadRingtone").click(function (e) {
-    e.preventDefault();
-    if ($('#incrementUrl').val() && $('#ringtone_id').val()) {
+    if ($('#ringtone_id').val()) {
         $.ajax({
             url: $('#incrementUrl').val(),
             dataType: 'json',

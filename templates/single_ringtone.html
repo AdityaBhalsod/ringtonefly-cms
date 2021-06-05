@@ -1,7 +1,7 @@
 {% load helping_filter sekizai_tags %}
 {% addtoblock "ringtone_tag" %}
-<meta name="keywords" content="{% if seo and seo.common_keywords %}{{seo.common_keywords}}{% endif %} ,{{request|convert_into_tag}}" />
-<meta name="description" content="{% if seo and eo.common_description %}{{seo.common_description}}{% endif %} {{ringtone.description|safe}}" />
+<meta name="keywords" content="{% if seo and seo.common_keywords %}{{seo.common_keywords}},{% endif %} {{request|convert_into_tag}}" />
+<meta name="description" content="{% if seo and seo.common_description %}{{seo.common_description}}{% endif %} {% if ringtone and ringtone.description %} {{ringtone.description|safe}}{% endif %}" />
 {% endaddtoblock %}
 {% if ringtone %}
 <div class="container3">
@@ -76,12 +76,12 @@
         <div class="ringtone-download">
             {% if ringtone.android_ringtone_file %}
             <div class="download-btn-mp3">
-                <a href="{{ringtone.android_ringtone_file.url}}" id="downloadRingtone" download>Download for Mp3 (Android)</a>
+                <a target="_blank" href="{{ringtone.android_ringtone_file.url}}" id="downloadRingtone" download>Download for Mp3 (Android)</a>
             </div>
             {% endif %}
             {% if ringtone.iphone_ringtone_file %}
             <div class="download-btn-m4r">
-                <a href="{{ringtone.iphone_ringtone_file.url}}" id="downloadRingtone" download>Download for M4r (iPhone)</a>
+                <a target="_blank" href="{{ringtone.iphone_ringtone_file.url}}" id="downloadRingtone" download>Download for M4r (iPhone)</a>
             </div>
             {% endif %}
         </div>
