@@ -5,7 +5,6 @@ from django.db.models import F
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-import magic
 
 
 def contact_us(request):

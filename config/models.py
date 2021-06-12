@@ -1,4 +1,3 @@
-from typing import Text
 from ckeditor_uploader.fields import RichTextUploadingField
 from cms import api
 from cms.api import add_plugin
