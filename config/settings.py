@@ -223,26 +223,17 @@ CMS_PLACEHOLDER_CONF = {}
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-if os.getenv("DATABASE_HOST") and os.getenv("DATABASE_USER") and os.getenv("DATABASE_PASSWORD") and os.getenv("DATABASE_NAME"):
-    DATABASES: Dict[str, Dict[str, Union[str, int]]] = {
-        "default": {
-            "ENGINE": "django.db.backends.mysql",
-            "HOST": os.getenv("DATABASE_HOST"),
-            "NAME": os.getenv("DATABASE_NAME"),
-            "USER": os.getenv("DATABASE_USER"),
-            "PASSWORD": os.getenv("DATABASE_PASSWORD"),
-            "PORT": "3306",
-            "CONN_MAX_AGE": 500,
-            "ATOMIC_REQUESTS": True,
-        }
+DATABASES: Dict[str, Dict[str, Union[str, int]]] = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "HOST": os.getenv("DATABASE_HOST", "127.0.0.1"),
+        "NAME": os.getenv("DATABASE_NAME","ringtone-cms"),
+        "USER": os.getenv("DATABASE_USER", "postgres"),
+        "PASSWORD": os.getenv("DATABASE_PASSWORD", "password"),
+        "CONN_MAX_AGE": 500,
+        "ATOMIC_REQUESTS":True
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, "db.sqlite3"),
-        }
-    }
+}
 
 THUMBNAIL_PROCESSORS = (
     "easy_thumbnails.processors.colorspace",
