@@ -32,9 +32,9 @@ urlpatterns = [
 
 
 urlpatterns += i18n_patterns(
-    path("ringtone-admin/", admin.site.urls),
+    path("admin/", admin.site.urls),
     path("", include("cms.urls")),
-    prefix_default_language=False
+    prefix_default_language=False,
 )
 
 # This is only needed when using runserver.

@@ -77,7 +77,7 @@ MEDIA_URL = "/media/"
 
 MEDIA_ROOT = os.path.join(DATA_DIR, "media")
 STATIC_ROOT = os.path.join(DATA_DIR, "static")
- 
+
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "staticfiles"),)
 SITE_ID = 1
 
@@ -149,30 +149,6 @@ CMS_APPS = [
     "ckeditor_uploader",
 ]
 
-EXTRA_PLUGIN_APPS = [
-    "djangocms_bootstrap4",
-    "djangocms_bootstrap4.contrib.bootstrap4_alerts",
-    "djangocms_bootstrap4.contrib.bootstrap4_badge",
-    "djangocms_bootstrap4.contrib.bootstrap4_card",
-    "djangocms_bootstrap4.contrib.bootstrap4_carousel",
-    "djangocms_bootstrap4.contrib.bootstrap4_collapse",
-    "djangocms_bootstrap4.contrib.bootstrap4_content",
-    "djangocms_bootstrap4.contrib.bootstrap4_grid",
-    "djangocms_bootstrap4.contrib.bootstrap4_jumbotron",
-    "djangocms_bootstrap4.contrib.bootstrap4_link",
-    "djangocms_bootstrap4.contrib.bootstrap4_listgroup",
-    "djangocms_bootstrap4.contrib.bootstrap4_media",
-    "djangocms_bootstrap4.contrib.bootstrap4_picture",
-    "djangocms_bootstrap4.contrib.bootstrap4_tabs",
-    "djangocms_bootstrap4.contrib.bootstrap4_utilities",
-    "djangocms_icon",
-    "djangocms_link",
-    "djangocms_picture",
-    "djangocms_style",
-    "djangocms_googlemap",
-]
-
-
 
 CUSTOM_PLUGIN_APPS = [
     "config",
@@ -182,7 +158,7 @@ CUSTOM_PLUGIN_APPS = [
 
 
 # Application definition
-INSTALLED_APPS = CMS_APPS + CUSTOM_PLUGIN_APPS + EXTRA_PLUGIN_APPS
+INSTALLED_APPS = CMS_APPS + CUSTOM_PLUGIN_APPS
 
 LANGUAGES = (
     # Customize this
@@ -227,11 +203,11 @@ DATABASES: Dict[str, Dict[str, Union[str, int]]] = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "HOST": os.getenv("DATABASE_HOST", "127.0.0.1"),
-        "NAME": os.getenv("DATABASE_NAME","ringtone-cms"),
+        "NAME": os.getenv("DATABASE_NAME", "ringtone-cms"),
         "USER": os.getenv("DATABASE_USER", "postgres"),
         "PASSWORD": os.getenv("DATABASE_PASSWORD", "password"),
         "CONN_MAX_AGE": 500,
-        "ATOMIC_REQUESTS":True
+        "ATOMIC_REQUESTS": True,
     }
 }
 
@@ -244,8 +220,8 @@ THUMBNAIL_PROCESSORS = (
 
 SUPER_USER = {
     "ADMIN_EMAIL": os.getenv("ADMIN_EMAIL"),
-    "ADMIN_USERNAME":os.getenv("ADMIN_USERNAME"),
-    "ADMIN_PASSWORD": os.getenv("ADMIN_PASSWORD")
+    "ADMIN_USERNAME": os.getenv("ADMIN_USERNAME"),
+    "ADMIN_PASSWORD": os.getenv("ADMIN_PASSWORD"),
 }
 
 
@@ -368,4 +344,4 @@ CKEDITOR_CONFIGS = {
 }
 
 DJANGOCMS_REDIRECT_USE_REQUEST = True
-ADSTXT_CACHE_TIMEOUT = 60*60*24
+ADSTXT_CACHE_TIMEOUT = 60 * 60 * 24

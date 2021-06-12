@@ -89,7 +89,7 @@ class Category(BaseModel):
         verbose_name_plural = _("Categories")
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
     def save(self, no_signals=False, *args, **kwargs):
         def create_parent_page():
@@ -207,7 +207,7 @@ class Ringtone(BaseModel):
         verbose_name_plural = _("Ringtones")
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
     def save(self, no_signals=False, *args, **kwargs):
         if not self.slug:
@@ -288,7 +288,7 @@ class FooterPlugin(CMSPlugin):
             instance.save()
 
     def __str__(self):
-        return self.tagline
+        return str(self.tagline)
 
     class Meta:
         verbose_name = _("Footer")
@@ -314,7 +314,7 @@ class FooterHyperlink(BaseModel):
         verbose_name_plural = _("Footer hyperlinks")
 
     def __str__(self):
-        return self.title
+        return str(self.title)
 
 
 class FooterHyperlinkAdmin(BaseAdminStackLine):
@@ -375,7 +375,7 @@ class ContactUs(BaseModel):
     )
 
     def __str__(self):
-        return self.your_name
+        return str(self.your_name)
 
     class Meta:
         verbose_name = _("Contact Us")
@@ -429,7 +429,7 @@ class SiteConfig(BaseModel):
     )
 
     def __str__(self):
-        return self.site_name
+        return str(self.site_name)
 
 
 ############################################################################################
@@ -494,7 +494,7 @@ class MetaModel(BaseModel):
         verbose_name_plural = _("Meta fields")
 
     def __str__(self):
-        return self.tag_name
+        return str(self.tag_name)
 
 
 class MetaModelAdmin(BaseAdminStackLine):
@@ -518,7 +518,7 @@ class LinkModel(BaseModel):
         verbose_name_plural = _("Link fields")
 
     def __str__(self):
-        return self.rel
+        return str(self.rel)
 
 
 class LinkModelAdmin(BaseAdminStackLine):
