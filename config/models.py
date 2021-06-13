@@ -182,14 +182,12 @@ class Ringtone(BaseModel):
 
             super().save(*args, **kwargs)
         else:
-            parent_page = self.category.page
             page = api.create_page(
                 title=self.name,
                 slug=self.slug,
                 language="en",
                 in_navigation=False,
                 template=TEMPLATE_INHERITANCE_MAGIC,
-                parent=parent_page,
                 published=False,
             )
             self.title = Title.objects.get(page=page)

@@ -1,3 +1,4 @@
+from config.models import Category, Ringtone
 from django import template
 from django.utils.safestring import mark_safe
 
@@ -13,35 +14,61 @@ def convert_react_class(request, value):
 
 @register.filter
 def breadcrumb(request):
-    url = request.get_full_path()
-    html = """
+    current_page = request.current_page
+
+    if not current_page:
+        return mark_safe("""""")
+
+    try:
+        objects_find = Ringtone.objects.get(name__icontains=current_page)
+        detect = 1
+    except Exception:
+        try:
+            objects_find = Category.objects.get(name__icontains=current_page)
+            detect = 2
+        except Exception:
+            objects_find = None
+            detect = 0
+
+    contect = """
     <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
         <a itemprop="item" href="/" href=""><span itemprop="name">Home</span></a>
         <meta itemprop="position" content="1" />
-    </li>
-    """
-    new_url = []
-    i = 1
-    if url:
-        for item in url.split("/"):
-            if not item or "?" in item or "en" in item:
-                continue
-            else:
-                i += 1
-                new_url.append(item)
-                build_url = "/".join(item for item in new_url)
-                dash_to_convert_text = item.replace("-", " ")
-                html += f"""
-                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                    <a itemprop="item" href="/{build_url}/"><span itemprop="name">{str(dash_to_convert_text).capitalize()}</span></a>
-                    <meta itemprop="position" content="{i}" />
-                </li>
-                """
-    
-    if i == 1:
-        return mark_safe("""""")
+    </li>"""
+
+    if objects_find:
+        if detect == 1:
+            contect += f"""
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a itemprop="item" href="{objects_find.category.page.get_public_url()}"><span itemprop="name">{objects_find.category.name}</span></a>
+                <meta itemprop="position" content="2" />
+            </li>
+            """
+            contect += f"""
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a itemprop="item" href="{objects_find.page.get_public_url()}"><span itemprop="name">{objects_find.name}</span></a>
+                <meta itemprop="position" content="3" />
+            </li>
+            """
+
+        elif detect == 2:
+            contect += f"""
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a itemprop="item" href="{objects_find.page.get_public_url()}"><span itemprop="name">{objects_find.name}</span></a>
+                <meta itemprop="position" content="1" />
+            </li>
+            """
+
     else:
-        return mark_safe(html)
+        contect += f"""
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a itemprop="item" href="{request.path}"><span itemprop="name">{current_page}</span></a>
+            <meta itemprop="position" content="2" />
+        </li>
+        """
+
+    return mark_safe(contect)
+
 
 @register.filter
 def convert_into_tag(request):
@@ -56,6 +83,7 @@ def convert_into_tag(request):
                 if convert_into_undersocre:
                     tags.append(f"#{convert_into_undersocre}")
     return ",".join(item for item in tags)
+
 
 @register.filter
 def get_title(request):
