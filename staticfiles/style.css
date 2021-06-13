@@ -308,6 +308,7 @@ nav .brandname a {
     padding: 10px 25px;
     display: none;
     position: fixed;
+    z-index: 999;
 }
 
 .search-input input[type="text"] {
@@ -944,7 +945,6 @@ ol.bc-ul li a.current:hover {
     margin: 5px 0;
     outline: none;
     padding: 7px 7px;
-    z-index: 999;
     resize: none;
     border-radius: 5px;
     border: 1px solid rgb(51, 51, 51);
