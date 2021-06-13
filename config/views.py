@@ -92,7 +92,7 @@ def search_ringtone(request):
     if query:
         ringtone_objects = Ringtone.objects.filter(name__icontains=query)
     return render(
-        request=request,
+        request,
         template_name="search.html",
         context={"query": query, "ringtones": ringtone_objects},
     )
