@@ -67,6 +67,9 @@ def breadcrumb(request):
         </li>
         """
 
+    if "home" in str(current_page).lower():
+        return mark_safe("""""")
+
     return mark_safe(contect)
 
 
