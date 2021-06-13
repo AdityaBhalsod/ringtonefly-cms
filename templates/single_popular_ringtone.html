@@ -31,10 +31,12 @@
                 </div>
             </div>
             {% endfor %}
-            <div class="loadm flex center">
-                <a href="javascript:void(0)" id="loadMore5"> Load More</a>
-            </div>
         </div>
         {% endif %}
     </div>
+    {% if popular_ringtones %}
+    <div class="loadm flex center">
+        <a href="javascript:void(0)" id="loadMore5"> Load More</a>
+    </div>
+    {% endif %}
 </div>

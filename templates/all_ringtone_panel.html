@@ -1,10 +1,4 @@
-{% load helping_filter sekizai_tags %}
-
-{% addtoblock "category_tag" %}
-{{ current_category_object.meta_tag|safe }}
-{% endaddtoblock %}
-
-{% if current_category_ringtone %}
+{% load helping_filter sekizai_tags %} {% addtoblock "category_tag" %} {{ current_category_object.meta_tag|safe }} {% endaddtoblock %} {% if current_category_ringtone %}
 <div class="container">
     <div class="ringtone-area flex space-around flex-wrap">
         {% for ringtone in current_category_ringtone %}
@@ -32,9 +26,11 @@
             </div>
         </div>
         {% endfor %}
-        <div class="loadm flex center">
-            <a href="javascript:void(0)" id="loadMore6"> Load More</a>
-        </div>
     </div>
+    {% if current_category_ringtone %}
+    <div class="loadm flex center">
+        <a href="javascript:void(0)" id="loadMore6"> Load More</a>
+    </div>
+    {% endif %}
 </div>
 {% endif %}
