@@ -88,6 +88,7 @@ def react(request):
 @csrf_exempt
 def search_ringtone(request):
     query = request.GET.get("query", None)
+    ringtone_objects = []
     if query:
         ringtone_objects = Ringtone.objects.filter(name__icontains=query)
     return render(
