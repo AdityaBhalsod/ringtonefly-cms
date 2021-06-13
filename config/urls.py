@@ -31,11 +31,10 @@ urlpatterns = [
 ]
 
 
-urlpatterns += i18n_patterns(
+urlpatterns += [
     path("admin/", admin.site.urls),
     path("", include("cms.urls")),
-    prefix_default_language=False,
-)
+]
 
 # This is only needed when using runserver.
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

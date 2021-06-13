@@ -50,14 +50,6 @@ class BaseAdminStackLine(admin.StackedInline):
 
 
 ############################################################################################
-class PageIds(BaseModel):
-    category = models.IntegerField(default=-1)
-
-    class Meta:
-        verbose_name = _("Page ID")
-
-
-############################################################################################
 class CategoryPlugin(CMSPlugin):
     def copy_relations(self, oldinstance):
         for instance in oldinstance.category_field.all().order_by("id"):
@@ -91,17 +83,6 @@ class Category(BaseModel):
         return str(self.name)
 
     def save(self, no_signals=False, *args, **kwargs):
-        def create_parent_page():
-            parent_page = api.create_page(
-                title="Categories",
-                slug="category",
-                language="en",
-                template=TEMPLATE_INHERITANCE_MAGIC,
-                published=False,
-            )
-            PageIds.objects.create(category=parent_page.pk)
-            return parent_page
-
         if not self.slug:
             self.slug = slugify(self.name)
 
@@ -112,26 +93,11 @@ class Category(BaseModel):
 
             super().save(*args, **kwargs)
         else:
-            page_object = PageIds.objects.all().last()
-            parent_page = None
-
-            if not page_object:
-                parent_page = create_parent_page()
-                placeholder = parent_page.placeholders.get(slot="content")
-                add_plugin(placeholder, "CategoryPanel", "en", "last-child")
-            else:
-                parent_page = Page.objects.filter(pk=page_object.category).last()
-                if not parent_page:
-                    parent_page = create_parent_page()
-                    placeholder = parent_page.placeholders.get(slot="content")
-                    add_plugin(placeholder, "CategoryPanel", "en", "last-child")
-
             page = api.create_page(
                 title=self.name,
                 slug=self.slug,
                 language="en",
                 in_navigation=False,
-                parent=parent_page,
                 template=TEMPLATE_INHERITANCE_MAGIC,
                 published=False,
             )
