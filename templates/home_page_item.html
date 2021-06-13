@@ -37,7 +37,7 @@
                             <audio id="audio" controls>
                                 {% if item1.android_ringtone_file %}
                                 <source src="{{item1.android_ringtone_file.url}}" type="audio/mpeg">
-                                {% else %}
+                                {% elif item1 and item1.iphone_ringtone_file %}
                                 <source src="{{item1.iphone_ringtone_file.url}}" type="audio/x-m4r">
                                 {% endif %}
                             </audio>
@@ -70,7 +70,7 @@
                             <audio id="audio" controls>
                                 {% if item2.android_ringtone_file %}
                                 <source src="{{item2.android_ringtone_file.url}}" type="audio/mpeg">
-                                {% else %}
+                                {% elif item2 and item2.iphone_ringtone_file %}
                                 <source src="{{item2.iphone_ringtone_file.url}}" type="audio/x-m4r">
                                 {% endif %}
                             </audio>
@@ -104,7 +104,7 @@
                             <audio id="audio" controls>
                                 {% if item3.ringtone.android_ringtone_file %}
                                 <source src="{{item3.ringtone.android_ringtone_file.url}}" type="audio/mpeg">
-                                {% else %}
+                                {% elif item3 and item3.iphone_ringtone_file %}
                                 <source src="{{item3.ringtone.iphone_ringtone_file.url}}" type="audio/x-m4r">
                                 {% endif %}
                             </audio>

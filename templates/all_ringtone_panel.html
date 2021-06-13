@@ -14,9 +14,9 @@
                 <i class="fa fa-snowflake-o"></i>
                 <span class="track">
                     <audio id="audio" controls>
-                        {% if ringtone.android_ringtone_file %}
+                        {% if ringtone and ringtone.android_ringtone_file %}
                         <source src="{{ringtone.android_ringtone_file.url}}" type="audio/mpeg">
-                        {% else %}
+                        {% elif ringtone and ringtone.iphone_ringtone_file %}
                         <source src="{{ringtone.iphone_ringtone_file.url}}" type="audio/x-m4r">
                         {% endif %}
                     </audio>

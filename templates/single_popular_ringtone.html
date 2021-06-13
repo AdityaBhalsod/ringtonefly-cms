@@ -14,7 +14,7 @@
                             {% if ringtone.android_ringtone_file %}
                             <source src="{{ringtone.android_ringtone_file.url}}"
                                 type="audio/mpeg">
-                            {% else %}
+                                {% elif ringtone and ringtone.iphone_ringtone_file %}
                             <source src="{{ringtone.iphone_ringtone_file.url}}"
                                 type="audio/x-m4r">
                             {% endif %}
