@@ -1,9 +1,6 @@
-{% load helping_filter sekizai_tags %}
-{% addtoblock "ringtone_tag" %}
+{% load helping_filter sekizai_tags %} {% addtoblock "ringtone_tag" %}
 <meta name="keywords" content="{% if seo and seo.common_keywords %}{{seo.common_keywords}},{% endif %} {{request|convert_into_tag}}" />
-<meta name="description" content="{% if seo and seo.common_description %}{{seo.common_description}}{% endif %} {% if ringtone and ringtone.description %} {{ringtone.description|safe}}{% endif %}" />
-{% endaddtoblock %}
-{% if ringtone %}
+<meta name="description" content="Download {% if ringtone and ringtone.description %}{{ringtone.description|safe}}{% endif %}{% if seo and seo.common_description %}{{seo.common_description}}{% endif %}" /> {% endaddtoblock %} {% if ringtone %}
 <div class="container3">
     {% if site_config.ads_script %}
     <div class="container">
@@ -53,14 +50,12 @@
                 </div>
 
                 <div class="like">
-                    <div class="like-data flex vcenter"><i class="{{request|convert_react_class:ringtone.pk}}"
-                            aria-hidden="true" style="font-size:25px;" id="likeCount"> {{ringtone.like_count}}</i>
+                    <div class="like-data flex vcenter"><i class="{{request|convert_react_class:ringtone.pk}}" aria-hidden="true" style="font-size:25px;" id="likeCount"> {{ringtone.like_count}}</i>
                     </div>
                 </div>
 
                 <div class="download">
-                    <div class="download-data flex vcenter"><i class="fa fa-download" style="font-size:25px;"
-                            id="downloadCount"> {{ringtone.download_count}}</i></div>
+                    <div class="download-data flex vcenter"><i class="fa fa-download" style="font-size:25px;" id="downloadCount"> {{ringtone.download_count}}</i></div>
                 </div>
             </div>
         </div>
@@ -78,8 +73,7 @@
             <div class="download-btn-mp3">
                 <a target="_blank" href="{{ringtone.android_ringtone_file.url}}" id="downloadRingtone" download>Download for Mp3 (Android)</a>
             </div>
-            {% endif %}
-            {% if ringtone.iphone_ringtone_file %}
+            {% endif %} {% if ringtone.iphone_ringtone_file %}
             <div class="download-btn-m4r">
                 <a target="_blank" href="{{ringtone.iphone_ringtone_file.url}}" id="downloadRingtone" download>Download for M4r (iPhone)</a>
             </div>
@@ -111,12 +105,9 @@
             <ul class="flex">
                 <li><a href="whatsapp://send?text={{request.build_absolute_uri}}" rel='noopener' target='_blank'><i
                             class="fa fa-whatsapp"></i></a></li>
-                <li><a href='https://facebook.com/sharer/sharer.php?u={{request.build_absolute_uri}}' rel='noopener'
-                        target='_blank'><i class="fa fa-facebook"></i></a></li>
-                <li><a href="https://twitter.com/intent/tweet/?text={{request.build_absolute_uri}}" rel='noopener'
-                        target='_blank'><i class="fa fa-twitter-square"></i></a></li>
-                <li><a href="https://telegram.me/share/url?text={{request.build_absolute_uri}}" rel='noopener'
-                        target='_blank'><i class="fa fa-telegram"></i></a></li>
+                <li><a href='https://facebook.com/sharer/sharer.php?u={{request.build_absolute_uri}}' rel='noopener' target='_blank'><i class="fa fa-facebook"></i></a></li>
+                <li><a href="https://twitter.com/intent/tweet/?text={{request.build_absolute_uri}}" rel='noopener' target='_blank'><i class="fa fa-twitter-square"></i></a></li>
+                <li><a href="https://telegram.me/share/url?text={{request.build_absolute_uri}}" rel='noopener' target='_blank'><i class="fa fa-telegram"></i></a></li>
             </ul>
         </div>
     </div>
@@ -128,15 +119,13 @@
 <meta property="og:locale" content="en_US" />
 <meta property="og:title" content="{{ringtone.name|safe}}" />
 <meta property="og:description" content="{{ringtone.description|safe}}" />
-<meta property="og:url" content="{{request.build_absolute_uri|safe}}" />
-{% if ringtone.image %}<meta property="og:image" content="{{ringtone.image.url|safe}}" />{% endif %}
+<meta property="og:url" content="{{request.build_absolute_uri|safe}}" /> {% if ringtone.image %}
+<meta property="og:image" content="{{ringtone.image.url|safe}}" />{% endif %}
 <meta property="og:type" content="website" />
 
 <!-- twitter meta tag -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="{{ringtone.name|safe}}" />
 <meta name="twitter:description" content="{{ringtone.description|safe}}" />
-<meta name="twitter:url" content="{{request.build_absolute_uri|safe}}" />
-{% if ringtone.image %}<meta property="twitter:image" content="{{ringtone.image.url|safe}}" />{% endif %}
-{% endaddtoblock %}
-{% endif %}
+<meta name="twitter:url" content="{{request.build_absolute_uri|safe}}" /> {% if ringtone.image %}
+<meta property="twitter:image" content="{{ringtone.image.url|safe}}" />{% endif %} {% endaddtoblock %} {% endif %}

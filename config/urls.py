@@ -12,6 +12,11 @@ from django.views.generic.base import TemplateView
 
 admin.autodiscover()
 
+# sitemap configuration
+CMSSitemap.changefreq = "weekly"
+CMSSitemap.priority = 1.0
+
+
 urlpatterns = [
     path("react", react, name="react"),
     path("search", search_ringtone, name="search_ringtone"),
