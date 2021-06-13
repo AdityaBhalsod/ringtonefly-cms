@@ -13,18 +13,11 @@ from django.core.validators import FileExtensionValidator
 
 
 def audio_android_file_extension_validator():
-    return [
-        FileExtensionValidator(
-            allowed_extensions=["mp3"]
-        )
-    ]
+    return [FileExtensionValidator(allowed_extensions=["mp3"])]
+
 
 def audio_iphone_file_extension_validator():
-    return [
-        FileExtensionValidator(
-            allowed_extensions=["m4r"]
-        )
-    ]
+    return [FileExtensionValidator(allowed_extensions=["m4r"])]
 
 
 def favicon_extension_validator():
@@ -63,7 +56,7 @@ class Category(BaseModel):
     name = models.CharField(_("Name"), max_length=255, help_text="Name of category")
     title = models.ForeignKey(Title, blank=True, null=True, on_delete=models.SET_NULL)
     page = models.ForeignKey(Page, blank=True, null=True, on_delete=models.SET_NULL)
-    meta_tag = models.TextField(_("Meta tag"),default="", blank=True, null=True)
+    meta_tag = models.TextField(_("Meta tag"), default="", blank=True, null=True)
     slug = models.SlugField(
         max_length=255, unique=True, default="", null=True, blank=True
     )
@@ -159,7 +152,11 @@ class Ringtone(BaseModel):
         validators=image_extension_validator(),
     )
     description = models.CharField(
-        _("Description"), max_length=255, help_text="Description of ringtone", null=True, blank=True
+        _("Description"),
+        max_length=255,
+        help_text="Description of ringtone",
+        null=True,
+        blank=True,
     )
     title = models.ForeignKey(Title, blank=True, null=True, on_delete=models.SET_NULL)
     page = models.ForeignKey(Page, blank=True, null=True, on_delete=models.SET_NULL)
@@ -421,7 +418,8 @@ class SEOTool(CMSPlugin):
     home_page_meta_tag = models.TextField(
         _("Home page meta-tag"),
         default="",
-        null=True, blank=True,
+        null=True,
+        blank=True,
         help_text="You can adding any meta tag it's only work homepage only.",
     )
 
@@ -500,6 +498,7 @@ class FavoritePlugin(CMSPlugin):
             instance.sortable = self
             instance.save()
 
+
 class Top50(BaseModel):
     ringtone = models.ForeignKey(
         Ringtone, on_delete=models.CASCADE, blank=True, null=True
@@ -517,7 +516,10 @@ class Top50Admin(BaseAdminStackLine):
     extra = 1
     max_num = 50
 
+
 ############################################################################################
 class SingleFavoritePlugin(CMSPlugin):
     pass
+
+
 ############################################################################################

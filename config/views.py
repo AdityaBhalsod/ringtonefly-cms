@@ -1,4 +1,4 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from datetime import datetime
 from .models import ContactUs, Ringtone
 from django.db.models import F
@@ -87,27 +87,11 @@ def react(request):
 
 @csrf_exempt
 def search_ringtone(request):
-    data = {}
-    for key, _ in request.GET.items():
-        data = json.loads(key)
-
-    query = data.get("query", None)
+    query = request.GET.get("query", None)
     if query:
         ringtone_objects = Ringtone.objects.filter(name__icontains=query)
-        ringtones = []
-        for item in ringtone_objects:
-            ringtone_file = item.android_ringtone_file if item.android_ringtone_file else item.iphone_ringtone_file
-            ringtones.append(
-                {
-                    "category_public_url": item.category.page.get_public_url(),
-                    "category_name": item.category.name,
-                    "ringtone_url": item.page.get_public_url(),
-                    "ringtone_media_url": ringtone_file.url,
-                    "ringtone_type": "audio/mpeg" if item.android_ringtone_file else "audio/audio/x-m4r",
-                    "ringtone_name": item.name,
-                    "ringtone_download_count": item.download_count,
-                }
-            )
-        return JsonResponse({"result": True, "ringtone": ringtones, "query":query})
-    return JsonResponse({"result": False})
-    
+    return render(
+        request=request,
+        template_name="search.html",
+        context={"query": query, "ringtones": ringtone_objects},
+    )

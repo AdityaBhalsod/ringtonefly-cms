@@ -1,16 +1,16 @@
-$(document).ready(function () {
-    $('.navbtn').click(function () {
+$(document).ready(function() {
+    $('.navbtn').click(function() {
         $('.mobilemenu').toggleClass('open');
         $('.navbtn i').toggleClass('open1');
         $('.navbtn i').toggleClass('fa-bars');
         $('.navbtn i').addClass('fa-times');
     });
-    $('.searchbtn').click(function () {
+    $('.searchbtn').click(function() {
         $('.search-input').slideToggle();
         $('.searchbtn i').toggleClass('fa-times');
     });
 
-    $('.like-data').click(function () {
+    $('.like-data').click(function() {
         var data = $('.like-data i').attr('class');
         if (data === 'fa fa-heart-o') {
             $('.like-data i').removeClass('fa-heart-o')
@@ -24,18 +24,16 @@ $(document).ready(function () {
     })
 
 
-    $(".cat-list ul li a").click(function () {
+    $(".cat-list ul li a").click(function() {
         $(".cat-list ul li a").removeClass("active");
-        // $(".tab").addClass("active"); // instead of this do the below 
         $(this).addClass("active");
     });
 
 
-    $(function () { $(window).scroll(function () { $(this).scrollTop() > 400 ? $(".back-to-top").addClass('back') : $(".back-to-top").removeClass('back') }), $(".back-to-top").click(function () { return $("html,body").animate({ scrollTop: 0 }, 400), !1 }) });
+    $(function() { $(window).scroll(function() { $(this).scrollTop() > 400 ? $(".back-to-top").addClass('back') : $(".back-to-top").removeClass('back') }), $(".back-to-top").click(function() { return $("html,body").animate({ scrollTop: 0 }, 400), !1 }) });
 
 
-
-    $("#playBtnRingletone").click(function () {
+    $("#playBtnRingletone").click(function() {
         var data = $(this).children("i");
         if (data.attr('class') === 'fa fa-play-circle') {
             data.removeClass('fa fa-play-circle');
@@ -45,7 +43,7 @@ $(document).ready(function () {
             data.addClass('fa fa-play-circle');
         }
     })
-    
+
     $('.cat-list').on('click', 'a', function(e) {
         e.preventDefault();
         var tabId = $(this).attr('data-tab');
@@ -55,8 +53,8 @@ $(document).ready(function () {
         $('#' + tabId).addClass('active');
     });
 
-     // Play Function
-     $(".ringtone-player .play-btn .fa-play-circle").on('click', function(current) {
+    // Play Function
+    $(".ringtone-player .play-btn .fa-play-circle").on('click', function(current) {
         $(this).parent().find(".fa-play-circle").css("display", "none");
         $(this).parent().find(".fa-snowflake-o").css("display", "inline-block");
         $(".fa-play-circle").not(this).parent().find(".fa-snowflake-o").css("display", "none");
@@ -90,13 +88,10 @@ $(document).ready(function () {
         $(this).parent().parent().find(".track audio")[0].pause();
     });
 
-
-
-    $(audio).on('ended', function() {
+    $("audio").on('ended', function() {
         // HIDE PASE ICON
         $(".ringtone-player .play-btn .fa-snowflake-o").css("display", "none");
         // Show Play Icon
         $(".ringtone-player .play-btn .fa-play-circle").css("display", "inline-block");
     });
 });
-

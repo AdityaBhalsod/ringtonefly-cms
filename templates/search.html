@@ -4,21 +4,21 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,shrink-to-fit=no">    
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,shrink-to-fit=no">
     {% if site_config and site_config.favicon.url %}
     <link rel="shortcut icon" href="{{site_config.favicon.url}}" type="image/x-icon">
     {% endif %}
-    
+
     <!-- ################################################################################################################ -->
     <!-- All meta tag for current site -->
     {% render_block "og_twitter_tag" %}
-    {% include "metatag.html" %} 
+    {% include "metatag.html" %}
     {% render_block "ringtone_tag" %}
     {% render_block "category_tag" %}
     {% if seo and seo.home_page_meta_tag and "Home" in request|get_title %}{{seo.home_page_meta_tag|safe}}{% endif %}
     <!-- All meta tag for current site -->
     <!-- ################################################################################################################ -->
-    
+
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <link rel="stylesheet" href="{% static 'custom.css' %}">
     <link rel="stylesheet" href="{% static 'share.css' %}">
@@ -26,9 +26,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 
-    
-     
-    <title>{% if "Home" in request.current_page.get_menu_title %}Download Ringtone New Mp3 or M4r{% else %}{% block title %}{% endblock title %}{% endif %} » {% if site_config %}{{site_config.site_title}}{% endif %}</title>
+
+
+    <title>
+        {% if "Home" in request.current_page.get_menu_title %}
+            Download Ringtone New Mp3 or M4r
+        {% else %}
+        {% block title %}{% endblock title %}
+        {% endif %} » 
+        {% if site_config %}{{site_config.site_title}}{% endif %}
+    </title>
+
     {% render_block "css" %}
 
     {% if "Home" in request.current_page.get_menu_title %}
@@ -52,8 +60,69 @@
     {% cms_toolbar %}
     {% include "navbar/main.html" %}
     {% include "brandcamps.html" %}
-    {% block content %}
-    {% endblock content %}
+
+
+    <div class="container" id="searchContainer" hidden>
+        <div class="sresult">
+            <div class="result">
+                {% if query %}
+                <p>Search result for : <span id="searchQuery">{{query}}</span></p>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if site_config.ads_script %}
+        <div class="container">
+            <div class="ad-container">
+                {{site_config.ads_script|safe}}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="ringtone-area flex space-around flex-wrap" id="searchResult" style="display: none;">
+            {% for ringtone in ringtones %}
+            <div class="ringtone-player flex vcenter blogBox2 moreBox2" style="display: none;">
+                <div class="play-btn">
+                    <i class="fa fa-play-circle"></i>
+                    <i class="fa fa-snowflake-o"></i>
+                    <span class="track">
+                        <audio id="audio" controls>
+                            {% if ringtone.android_ringtone_file %}
+                            <source src="{{ringtone.android_ringtone_file.url}}" type="audio/mpeg">
+                            {% elif ringtone and ringtone.iphone_ringtone_file %}
+                            <source src="{{ringtone.iphone_ringtone_file.url}}" type="audio/x-m4r">
+                            {% endif %}
+                        </audio>
+                    </span>
+                </div>
+                <div class="ringtone-info">
+                    <div class="categoryName"><a
+                            href="{{ringtone.category.page.get_public_url}}">{{ringtone.category.name}}</a>
+                    </div>
+                    <div class="ringtoneName">
+                        <h2><a href="{{ringtone.page.get_public_url}}">{{ringtone.name}}</a></h2>
+                    </div>
+                    <div class="download-info"><b>{{ringtone.download_count}}</b> - Downloads</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="loadm flex center" id="searchloadMoreBtn" style="display: none;">
+            <a href="javascript:void(0)" id="loadMore4"> Load More</a>
+        </div>
+
+        <!-- Ad -->
+        {% if site_config.ads_script %}
+        <div class="container">
+            <div class="ad-container">
+                {{site_config.ads_script|safe}}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+
     {% include "footer.html" %}
     {% render_block "js" %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

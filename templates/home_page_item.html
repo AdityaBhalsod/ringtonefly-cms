@@ -1,5 +1,4 @@
-{% load helping_filter %}
-{% if instance %}
+{% load helping_filter %} {% if instance %}
 <div class="container">
     <div class="cat-area">
         <div class="cat-list">
@@ -44,8 +43,7 @@
                         </span>
                     </div>
                     <div class="ringtone-info">
-                        <div class="categoryName"><a
-                                href="{{item1.category.page.get_public_url}}">{{item1.category.name}}</a>
+                        <div class="categoryName"><a href="{{item1.category.page.get_public_url}}">{{item1.category.name}}</a>
                         </div>
                         <div class="ringtoneName">
                             <h2><a href="{{item1.page.get_public_url}}">{{item1.name}}</a></h2>
@@ -77,8 +75,7 @@
                         </span>
                     </div>
                     <div class="ringtone-info">
-                        <div class="categoryName"><a
-                                href="{{item2.category.page.get_public_url}}">{{item2.category.name}}</a>
+                        <div class="categoryName"><a href="{{item2.category.page.get_public_url}}">{{item2.category.name}}</a>
                         </div>
                         <div class="ringtoneName">
                             <h2><a href="{{item2.page.get_public_url}}">{{item2.name}}</a></h2>
