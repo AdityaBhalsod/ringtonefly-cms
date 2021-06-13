@@ -27,10 +27,9 @@
 </div>
 {% if "Home" in request.current_page.get_menu_title %}
 <div class="search-input">
-    <form action="javascript:void(0)" method="GET" class="flex space-between">
-        <input type="hidden" id="searchURL" value="{% url 'search_ringtone' %}">
-        <input type="text" id="searchInput" placeholder="Search Ringtone">
-        <button id="searchBtn"><i class="fa fa-search"></i></button>
+    <form action="{% url 'search_ringtone' %}" method="GET" class="flex space-between">
+        <input type="text" id="searchInput" name="query" placeholder="Search Ringtone">
+        <button id="searchBtn" type="submit"><i class="fa fa-search"></i></button>
     </form>
 </div>
 {% endif %}
