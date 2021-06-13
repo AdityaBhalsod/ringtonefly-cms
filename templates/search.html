@@ -60,8 +60,7 @@
                 {{site_config.ads_script|safe}}
             </div>
         </div>
-        {% endif %}
-
+        {% endif %} {% if ringtones %}
         <div class="ringtone-area flex space-around flex-wrap" id="searchResult">
             {% for ringtone in ringtones %}
             <div class="ringtone-player flex vcenter blogBox4 moreBox4" style="display: none;">
@@ -89,6 +88,12 @@
             </div>
             {% endfor %}
         </div>
+        {% else %}
+        <div class="ringtone-area flex space-around flex-wrap" id="searchResult">
+            <h1>Not found!</h1>
+        </div>
+
+        {% endif %}
 
         <div class="loadm flex center" id="searchloadMoreBtn" style="display: none;">
             <a href="javascript:void(0)" id="loadMore4"> Load More</a>
