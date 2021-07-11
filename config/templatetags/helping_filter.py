@@ -1,3 +1,4 @@
+from config.number_system import numerize
 from config.models import Category, Ringtone
 from django import template
 from django.utils.safestring import mark_safe
@@ -94,3 +95,8 @@ def get_title(request):
         return str(request.current_page.get_menu_title())
     else:
         return str(request.current_page.get_title())
+
+
+@register.filter
+def number_system(value):
+    return numerize(value)

@@ -49,6 +49,7 @@
 <body>
     {% cms_toolbar %} {% include "navbar/main.html" %} {% include "brandcamps.html" %} {% block content %} {% endblock content %} {% include "footer.html" %} {% render_block "js" %}
     <script src="{% static 'jquery.min.js' %}"></script>
+    <script src="{% static 'all.js' %}"></script>
    
 
     {% if site_config and site_config.bottem_ads_script %}

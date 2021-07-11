@@ -1,12 +1,21 @@
 from cms.sitemaps import CMSSitemap
 from django.conf import settings
-from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
 from django.urls.conf import re_path
-from .views import contact_us, rigntone_incress_download, react, search_ringtone
+from .views import (
+    category_releted_ringtone,
+    contact_us,
+    individual_ringtone,
+    new_ringtone,
+    popular_ringtone,
+    rigntone_incress_download,
+    react,
+    search_ringtone,
+    top_50_ringtone,
+)
 from django.views.generic.base import TemplateView
 
 
@@ -26,6 +35,19 @@ urlpatterns = [
         rigntone_incress_download,
         name="rigntone_incress_download",
     ),
+    
+    # ######## api v1 ########
+    path("api/v1/popular-ringtone", popular_ringtone, name="popular_ringtone"),
+    path("api/v1/new-ringtone", new_ringtone, name="new_ringtone"),
+    path("api/v1/individual-ringtone", individual_ringtone, name="individual_ringtone"),
+    path("api/v1/top-50-ringtone", top_50_ringtone, name="top_50_ringtone"),
+    path(
+        "api/v1/category-releted-ringtone",
+        category_releted_ringtone,
+        name="category_releted_ringtone",
+    ),
+    # ######## api v1 ########
+
     path("sitemap.xml", sitemap, {"sitemaps": {"cmspages": CMSSitemap}}),
     path("ckeditor/", include("ckeditor_uploader.urls")),
     path(

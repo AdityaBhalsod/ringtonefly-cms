@@ -29,13 +29,13 @@
         <div class="tab-panel active" id="tab1">
             <div class="ringtone-area">
                 {% for item1 in popular_ringtones %}
-                <div class="ringtone-player blogBox1 moreBox1" style="display: none;">
+                <div class="ringtone-player" id="popularRingtone">
                     <div class="play-btn">
                         <i class="fa fa-play-circle"></i>
                         <i class="fa fa-snowflake-o"></i>
                         <span class="track">
                             <audio id="audio" controls preload="none">
-                                {% if item1.android_ringtone_file %}
+                                {% if item1 and item1.android_ringtone_file %}
                                 <source src="{{item1.android_ringtone_file.url}}" type="audio/mpeg">
                                 {% elif item1 and item1.iphone_ringtone_file %}
                                 <source src="{{item1.iphone_ringtone_file.url}}" type="audio/x-m4r">
@@ -49,7 +49,7 @@
                         <div class="ringtoneName">
                             <h2><a href="{{item1.page.get_public_url}}">{{item1.name}}</a></h2>
                         </div>
-                        <div class="download-info"><b>{{item1.download_count}}</b> - Downloads</div>
+                        <div class="download-info"><b>{{item1.download_count|number_system}}</b> - Downloads</div>
                     </div>
                 </div>
                 {% endfor %}
@@ -61,13 +61,13 @@
         <div class="tab-panel" id="tab2">
             <div class="ringtone-area">
                 {% for item2 in new_ringtones %}
-                <div class="ringtone-player blogBox2 moreBox2" style="display: none;">
+                <div class="ringtone-player" id="newRingtone">
                     <div class="play-btn">
                         <i class="fa fa-play-circle"></i>
                         <i class="fa fa-snowflake-o"></i>
                         <span class="track">
                             <audio id="audio" controls preload="none">
-                                {% if item2.android_ringtone_file %}
+                                {% if item2 and item2.android_ringtone_file %}
                                 <source src="{{item2.android_ringtone_file.url}}" type="audio/mpeg">
                                 {% elif item2 and item2.iphone_ringtone_file %}
                                 <source src="{{item2.iphone_ringtone_file.url}}" type="audio/x-m4r">
@@ -81,7 +81,7 @@
                         <div class="ringtoneName">
                             <h2><a href="{{item2.page.get_public_url}}">{{item2.name}}</a></h2>
                         </div>
-                        <div class="download-info"><b>{{item2.download_count}}</b> - Downloads</div>
+                        <div class="download-info"><b>{{item2.download_count|number_system}}</b> - Downloads</div>
                     </div>
                 </div>
                 {% endfor %}
@@ -94,13 +94,13 @@
         <div class="tab-panel" id="tab3">
             <div class="ringtone-area">
                 {% for item3 in top50 %}
-                <div class="ringtone-player blogBox3 moreBox3" style="display: none;">
+                <div class="ringtone-player" id="top50Ringtone">
                     <div class="play-btn">
                         <i class="fa fa-play-circle"></i>
                         <i class="fa fa-snowflake-o"></i>
                         <span class="track">
                             <audio id="audio" controls preload="none">
-                                {% if item3.ringtone.android_ringtone_file %}
+                                {% if item3 and item3.ringtone.android_ringtone_file %}
                                 <source src="{{item3.ringtone.android_ringtone_file.url}}" type="audio/mpeg">
                                 {% elif item3 and item3.iphone_ringtone_file %}
                                 <source src="{{item3.ringtone.iphone_ringtone_file.url}}" type="audio/x-m4r">
@@ -115,7 +115,7 @@
                         <div class="ringtoneName">
                             <h2><a href="{{item3.ringtone.page.get_public_url}}">{{item3.ringtone.name}}</a></h2>
                         </div>
-                        <div class="download-info"><b>{{item3.ringtone.download_count}}</b> - Downloads</div>
+                        <div class="download-info"><b>{{item3.ringtone.download_count|number_system}}</b> - Downloads</div>
                     </div>
                 </div>
                 {% endfor %}

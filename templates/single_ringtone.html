@@ -50,12 +50,12 @@
                 </div>
 
                 <div class="like">
-                    <div class="like-data"><i class="{{request|convert_react_class:ringtone.pk}}" aria-hidden="true" style="font-size:25px;" id="likeCount"> {{ringtone.like_count}}</i>
+                    <div class="like-data"><i class="{{request|convert_react_class:ringtone.pk}}" aria-hidden="true" style="font-size:25px;" id="likeCount"> {{ringtone.like_count|number_system}}</i>
                     </div>
                 </div>
 
                 <div class="download">
-                    <div class="download-data"><i class="fa fa-download" style="font-size:25px;" id="downloadCount"> {{ringtone.download_count}}</i></div>
+                    <div class="download-data"><i class="fa fa-download" style="font-size:25px;" id="downloadCount"> {{ringtone.download_count|number_system}}</i></div>
                 </div>
             </div>
         </div>

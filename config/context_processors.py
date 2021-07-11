@@ -1,4 +1,4 @@
-from .models import Category, FooterPlugin, Ringtone, SEOTool, SiteConfig
+from .models import Category, FooterPlugin, SEOTool, SiteConfig
 
 
 def get_global_context(request):

@@ -83,7 +83,7 @@
                     <div class="ringtoneName">
                         <h2><a href="{{ringtone.page.get_public_url}}">{{ringtone.name}}</a></h2>
                     </div>
-                    <div class="download-info"><b>{{ringtone.download_count}}</b> - Downloads</div>
+                    <div class="download-info"><b>{{ringtone.download_count|number_system}}</b> - Downloads</div>
                 </div>
             </div>
             {% endfor %}
