@@ -48,7 +48,11 @@ $(document).ready(function () {
         dataType: "json",
         type: "GET",
         processData: !1,
+        beforeSend: function(){
+          $('#loading').show();
+        },
         success: function (e) {
+          $('#loading').hide();
           if (e) {
             if (e.hasNext == false) {
               $("#loadMorePopularRingtone").hide();
@@ -72,7 +76,11 @@ $(document).ready(function () {
         dataType: "json",
         type: "GET",
         processData: !1,
+        beforeSend: function(){
+          $('#loading').show();
+        },
         success: function (e) {
+          $('#loading').hide();
           if (e) {
             if (e.hasNext == false) {
               $("#loadMoreNewRingtone").hide();
@@ -97,7 +105,11 @@ $(document).ready(function () {
         dataType: "json",
         type: "GET",
         processData: !1,
+        beforeSend: function(){
+          $('#loading').show();
+        },
         success: function (e) {
+          $('#loading').hide();
           if (e) {
             if (e.hasNext == false) {
               $("#loadMoreTop50Ringtone").hide();
@@ -126,7 +138,11 @@ $(document).ready(function () {
         dataType: "json",
         type: "GET",
         processData: !1,
+        beforeSend: function(){
+          $('#loading').show();
+        },
         success: function (e) {
+          $('#loading').hide();
           if (e) {
             if (e.hasNext == false) {
               $("#loadMoreCategoryReletedRingtone").hide();
@@ -153,7 +169,11 @@ $(document).ready(function () {
         dataType: "json",
         type: "GET",
         processData: !1,
+        beforeSend: function(){
+          $('#loading').show();
+        },
         success: function (e) {
+          $('#loading').hide();
           if (e) {
             if (e.hasNext == false) {
               $("#loadMoreSinglePopularRingtone").hide();
