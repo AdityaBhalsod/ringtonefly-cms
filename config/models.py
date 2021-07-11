@@ -285,13 +285,30 @@ class FooterHyperlinkAdmin(BaseAdminStackLine):
 ############################################################################################
 class ContainerPlugin(CMSPlugin):
     title = models.CharField(
-        _("Title"), max_length=255, help_text="Title of container."
+        _("Title"),
+        max_length=255,
+        help_text="Title of container.",
+        blank=True,
+        null=True,
     )
     content = RichTextUploadingField(
         _("Content"), default="", help_text="Content of container"
     )
     updated_at = models.DateTimeField(auto_now=True)
 
+############################################################################################
+
+class ContainerPluginV2(CMSPlugin):
+    title = models.CharField(
+        _("Title"),
+        max_length=255,
+        help_text="Title of container.",
+        blank=True,
+        null=True,
+    )
+    content = RichTextUploadingField(
+        _("Content"), default="", help_text="Content of container"
+    )
 
 ############################################################################################
 class AboutUsPlugin(CMSPlugin):
@@ -522,6 +539,7 @@ class SingleFavoritePlugin(CMSPlugin):
 
 ############################################################################################
 
+
 class LimitationObject(BaseModel):
     popular_container = models.PositiveIntegerField(default=12)
     new_container = models.PositiveIntegerField(default=12)
@@ -531,4 +549,6 @@ class LimitationObject(BaseModel):
 
     def __str__(self):
         return "Limitation"
+
+
 ############################################################################################

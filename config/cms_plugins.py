@@ -8,6 +8,7 @@ from .models import (
     CategoryPanelPlugin,
     ContactUsPlugin,
     ContainerPlugin,
+    ContainerPluginV2,
     FavoritePlugin,
     FetchRingtonePlugin,
     LimitationObject,
@@ -28,6 +29,20 @@ class Container(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context = super(Container, self).render(context, instance, placeholder)
+        context.update({"container": instance})
+        return context
+
+
+@plugin_pool.register_plugin
+class ContainerV2(CMSPluginBase):
+    model = ContainerPluginV2
+    module = _("Common")
+    name = _("Container V2")  # name of the plugin in the interface
+    render_template = "container_v2.html"
+    cache = False
+
+    def render(self, context, instance, placeholder):
+        context = super(ContainerV2, self).render(context, instance, placeholder)
         context.update({"container": instance})
         return context
 
