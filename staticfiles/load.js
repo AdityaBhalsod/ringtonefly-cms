@@ -8,6 +8,13 @@ $(document).ready(function () {
   var top50RingtonePageCount = 0;
   var top50RingtoneHasNext = true;
 
+  var categoryReletedRingtonePageCount = 0;
+  var CategoryReletedRingtoneHasNext = true;
+
+  var singlePopularRingtonePageCount = 0;
+  var singlePopularRingtoneHasNext = true;
+
+
   function ringtoneHtmlContent(value){
 	  var htmlContent = "<div class='ringtone-player'>\
 			<div class='play-btn'> \
@@ -49,9 +56,7 @@ $(document).ready(function () {
             }
             if (e.ringtoneObjects) {
               $.each(e.ringtoneObjects, function (key, value) {
-                $("#popularRingtone").append(
-					ringtoneHtmlContent(value)
-                );
+                $("#popularRingtone").append(ringtoneHtmlContent(value));
               });
             }
           }
@@ -63,10 +68,7 @@ $(document).ready(function () {
     newRingtonePageCount++;
     if (newRingtoneHasNext == true) {
       $.ajax({
-        url:
-          $("#newRingtoneGetUrl").val() +
-          "?page=" +
-          newRingtonePageCount,
+        url: $("#newRingtoneGetUrl").val() + "?page=" + newRingtonePageCount,
         dataType: "json",
         type: "GET",
         processData: !1,
@@ -78,9 +80,7 @@ $(document).ready(function () {
             }
             if (e.ringtoneObjects) {
               $.each(e.ringtoneObjects, function (key, value) {
-                $("#newRingtone").append(
-					ringtoneHtmlContent(value)
-                );
+                $("#newRingtone").append(ringtoneHtmlContent(value));
               });
             }
           }
@@ -93,9 +93,7 @@ $(document).ready(function () {
     if (top50RingtoneHasNext == true) {
       $.ajax({
         url:
-          $("#top50RingtoneGetUrl").val() +
-          "?page=" +
-          top50RingtonePageCount,
+          $("#top50RingtoneGetUrl").val() + "?page=" + top50RingtonePageCount,
         dataType: "json",
         type: "GET",
         processData: !1,
@@ -107,9 +105,63 @@ $(document).ready(function () {
             }
             if (e.ringtoneObjects) {
               $.each(e.ringtoneObjects, function (key, value) {
-                $("#top50Ringtone").append(
-					ringtoneHtmlContent(value)
+                $("#top50Ringtone").append(ringtoneHtmlContent(value));
+              });
+            }
+          }
+        },
+      });
+    }
+  });
+  $("#loadMoreCategoryReletedRingtone").click(function (e) {
+    categoryReletedRingtonePageCount++;
+    if (CategoryReletedRingtoneHasNext == true) {
+      $.ajax({
+        url:
+          $("#categoryReletedRingtoneGetUrl").val() +
+          "?name=" +
+          $("#categoryReletedRingtoneGetSlug").val() + "&" +
+          "page=" +
+          categoryReletedRingtonePageCount,
+        dataType: "json",
+        type: "GET",
+        processData: !1,
+        success: function (e) {
+          if (e) {
+            if (e.hasNext == false) {
+              $("#loadMoreCategoryReletedRingtone").hide();
+              CategoryReletedRingtoneHasNext = e.hasNext;
+            }
+            if (e.ringtoneObjects) {
+              $.each(e.ringtoneObjects, function (key, value) {
+                $("#categoryReletedRingtone").append(
+                  ringtoneHtmlContent(value)
                 );
+              });
+            }
+          }
+        },
+      });
+    }
+  });
+  $("#loadMoreSinglePopularRingtone").click(function (e) {
+    singlePopularRingtonePageCount++;
+    if (singlePopularRingtoneHasNext == true) {
+      $.ajax({
+        url:
+          $("#singleRingtoneGetUrl").val() + "?page=" + singlePopularRingtonePageCount,
+        dataType: "json",
+        type: "GET",
+        processData: !1,
+        success: function (e) {
+          if (e) {
+            if (e.hasNext == false) {
+              $("#loadMoreSinglePopularRingtone").hide();
+              singlePopularRingtoneHasNext = e.hasNext;
+            }
+            if (e.ringtoneObjects) {
+              $.each(e.ringtoneObjects, function (key, value) {
+                $("#singlePopularRingtone").append(ringtoneHtmlContent(value));
               });
             }
           }

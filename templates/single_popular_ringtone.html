@@ -2,10 +2,11 @@
 <div class="container3">
     <div class="post-in-popular">
         <h2 class="pop">Popular Ringtone</h2>
+        <input id="singleRingtoneGetUrl" type="hidden" value="{% url 'individual_ringtone' %}"/>
         {% if popular_ringtones %}
-        <div class="ringtone-area">
+        <div class="ringtone-area" id="singlePopularRingtone">
             {% for ringtone in popular_ringtones %}
-            <div class="ringtone-player" id="singlePopularRingtone">
+            <div class="ringtone-player">
                 <div class="play-btn">
                     <i class="fa fa-play-circle"></i>
                     <i class="fa fa-snowflake-o"></i>

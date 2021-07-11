@@ -276,7 +276,7 @@ def category_releted_ringtone(request):
     except Exception:
         category_page_pagination = 12
 
-    category_slug = request.GET.get("category-slug", None)
+    category_slug = request.GET.get("name", None)
 
     if not category_slug:
         return JsonResponse({})

@@ -1,8 +1,10 @@
 {% load helping_filter sekizai_tags %} {% addtoblock "category_tag" %} {{ current_category_object.meta_tag|safe }} {% endaddtoblock %} {% if current_category_ringtone %}
 <div class="container">
-    <div class="ringtone-area">
+    <input id="categoryReletedRingtoneGetUrl" type="hidden" value="{% url 'category_releted_ringtone' %}"/>
+    <input id="categoryReletedRingtoneGetSlug" type="hidden" value="{{ request.current_page.get_slug }}"/>
+    <div class="ringtone-area" id="categoryReletedRingtone">
         {% for ringtone in current_category_ringtone %}
-        <div class="ringtone-player" id="categoryReletedRingtone">
+        <div class="ringtone-player">
             <div class="play-btn">
                 <i class="fa fa-play-circle"></i>
                 <i class="fa fa-snowflake-o"></i>
