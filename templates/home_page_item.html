@@ -2,7 +2,7 @@
 <div class="container">
     <div class="cat-area">
         <div class="cat-list">
-            <ul class="flex center">
+            <ul >
                 <li>
                     <a href="javascript:void(0)" data-tab="tab1" class="tab-link active">Popular</a>
                 </li>
@@ -26,14 +26,14 @@
     {% endif %}
     <div class="tab-pane">
         <div class="tab-panel active" id="tab1">
-            <div class="ringtone-area flex space-around flex-wrap">
+            <div class="ringtone-area">
                 {% for item1 in popular_ringtones %}
-                <div class="ringtone-player flex vcenter blogBox1 moreBox1" style="display: none;">
+                <div class="ringtone-player blogBox1 moreBox1" style="display: none;">
                     <div class="play-btn">
                         <i class="fa fa-play-circle"></i>
                         <i class="fa fa-snowflake-o"></i>
                         <span class="track">
-                            <audio id="audio" controls>
+                            <audio id="audio" controls preload="none">
                                 {% if item1.android_ringtone_file %}
                                 <source src="{{item1.android_ringtone_file.url}}" type="audio/mpeg">
                                 {% elif item1 and item1.iphone_ringtone_file %}
@@ -53,19 +53,19 @@
                 </div>
                 {% endfor %}
             </div>
-            <div class="loadm flex center">
+            <div class="loadm">
                 <a href="javascript:void(0)" id="loadMore1"> Load More</a>
             </div>
         </div>
         <div class="tab-panel" id="tab2">
-            <div class="ringtone-area flex space-around flex-wrap">
+            <div class="ringtone-area">
                 {% for item2 in new_ringtones %}
-                <div class="ringtone-player flex vcenter blogBox2 moreBox2" style="display: none;">
+                <div class="ringtone-player blogBox2 moreBox2" style="display: none;">
                     <div class="play-btn">
                         <i class="fa fa-play-circle"></i>
                         <i class="fa fa-snowflake-o"></i>
                         <span class="track">
-                            <audio id="audio" controls>
+                            <audio id="audio" controls preload="none">
                                 {% if item2.android_ringtone_file %}
                                 <source src="{{item2.android_ringtone_file.url}}" type="audio/mpeg">
                                 {% elif item2 and item2.iphone_ringtone_file %}
@@ -85,20 +85,20 @@
                 </div>
                 {% endfor %}
             </div>
-            <div class="loadm flex center">
+            <div class="loadm ">
                 <a href="javascript:void(0)" id="loadMore2"> Load More</a>
             </div>
         </div>
         {% if instance and instance.top50_field.all %}
         <div class="tab-panel" id="tab3">
-            <div class="ringtone-area flex space-around flex-wrap">
+            <div class="ringtone-area">
                 {% for item3 in instance.top50_field.all %}
-                <div class="ringtone-player flex vcenter blogBox3 moreBox3" style="display: none;">
+                <div class="ringtone-player blogBox3 moreBox3" style="display: none;">
                     <div class="play-btn">
                         <i class="fa fa-play-circle"></i>
                         <i class="fa fa-snowflake-o"></i>
                         <span class="track">
-                            <audio id="audio" controls>
+                            <audio id="audio" controls preload="none">
                                 {% if item3.ringtone.android_ringtone_file %}
                                 <source src="{{item3.ringtone.android_ringtone_file.url}}" type="audio/mpeg">
                                 {% elif item3 and item3.iphone_ringtone_file %}
@@ -119,7 +119,7 @@
                 </div>
                 {% endfor %}
             </div>
-            <div class="loadm flex center">
+            <div class="loadm">
                 <a href="javascript:void(0)" id="loadMore3"> Load More</a>
             </div>
         </div>

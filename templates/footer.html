@@ -1,7 +1,7 @@
 <footer>
     <div class='site-infoku'>
         <div class="footmenu">
-            <ul class="flex flex-wrap center">
+            <ul>
                 {% if footer and footer.footer_field.all %}
                 {% for instance in footer.footer_field.all %}
                 <li><a href="{{instance.link}}">{{instance.title}}</a></li>
@@ -16,5 +16,8 @@
         <br />
         Made with <i class='fa fa-heart'></i> <a href='{{site_config.site_url}}'>{{site_config.site_name}}</a>
         {% endif %}
+        <div class="dmca-icon" style="margin-top: 10px;margin-bottom: -10p"> 
+         <a href="//www.dmca.com/Protection/Status.aspx?ID=84a57446-9f6a-42a9-8b5b-d180efad970e" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca-badge-w100-5x1-06.png?ID=84a57446-9f6a-42a9-8b5b-d180efad970e"  alt="DMCA.com Protection Status"/></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+         </div>
     </div>
 </footer>

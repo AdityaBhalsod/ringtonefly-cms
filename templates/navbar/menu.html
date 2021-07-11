@@ -1,7 +1,7 @@
 {% load cms_tags menu_tags static %}
 {% for child in children %}
 {% if categories and forloop.counter == 2 %}
-<li class="desk-cat flex vcenter">Category<i class="fa fa-angle-right" aria-hidden="true"></i>
+<li class="desk-cat">Category<i class="fa fa-angle-right" aria-hidden="true"></i>
     <ul class="menu-drop ">
         {% for item in categories %}
         {% if item.page.get_public_url %}

@@ -1,7 +1,7 @@
 <div class="bottom-cat">
     <div class="container">
         <h2>Categories</h2>
-        <ul class="flex flex-wrap center">
+        <ul>
             {% for item in categories %}
             {% if item.page.get_public_url %}
             <a href="{{item.page.get_public_url}}"><li>{{item.name}}</li></a>

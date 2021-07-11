@@ -1,6 +1,6 @@
 {% load helping_filter sekizai_tags %} {% addtoblock "ringtone_tag" %}
 <meta name="keywords" content="{% if seo and seo.common_keywords %}{{seo.common_keywords}},{% endif %} {{request|convert_into_tag}}" />
-<meta name="description" content="Download {% if ringtone and ringtone.description %}{{ringtone.description|safe}}{% endif %}{% if seo and seo.common_description %}{{seo.common_description}}{% endif %}" /> {% endaddtoblock %} {% if ringtone %}
+<meta name="description" content="Download {% if ringtone and ringtone.description %}{{ringtone.description|safe}}{% endif %} {% if seo and seo.common_description %}{{seo.common_description}}{% endif %}" /> {% endaddtoblock %} {% if ringtone %}
 <div class="container3">
     {% if site_config.ads_script %}
     <div class="container">
@@ -9,7 +9,7 @@
         </div>
     </div>
     {% endif %}
-    <div class="post-ringtone-area flex center">
+    <div class="post-ringtone-area ">
         <div class="post-ringtone-player">
             <div class="post-ringtone-title">
                 <h1>{{ringtone}}</h1>
@@ -25,7 +25,7 @@
             <div class="audio-player">
                 <div class="controls">
                     <div class="play-container">
-                        <div class="toggle-play flex center">
+                        <div class="toggle-play">
                             <div class="play-btn">
                                 <i class="fa fa-play-circle"></i>
                             </div>
@@ -36,13 +36,13 @@
                         <div class="progress"></div>
                     </div>
 
-                    <div class="time flex space-between">
+                    <div class="time">
                         <div class="current">0:00</div>
                         <div class="length"></div>
                     </div>
                 </div>
             </div>
-            <div class="player-s-d-info flex space-between">
+            <div class="player-s-d-info">
                 <div class="share">
                     <div class="share-btn">
                         <a href="javascript:void(0)"><i class="fa fa-share"></i></a>
@@ -50,12 +50,12 @@
                 </div>
 
                 <div class="like">
-                    <div class="like-data flex vcenter"><i class="{{request|convert_react_class:ringtone.pk}}" aria-hidden="true" style="font-size:25px;" id="likeCount"> {{ringtone.like_count}}</i>
+                    <div class="like-data"><i class="{{request|convert_react_class:ringtone.pk}}" aria-hidden="true" style="font-size:25px;" id="likeCount"> {{ringtone.like_count}}</i>
                     </div>
                 </div>
 
                 <div class="download">
-                    <div class="download-data flex vcenter"><i class="fa fa-download" style="font-size:25px;" id="downloadCount"> {{ringtone.download_count}}</i></div>
+                    <div class="download-data"><i class="fa fa-download" style="font-size:25px;" id="downloadCount"> {{ringtone.download_count}}</i></div>
                 </div>
             </div>
         </div>
@@ -67,7 +67,7 @@
         </div>
     </div>
     {% endif %}
-    <div class="download_info flex center">
+    <div class="download_info">
         <div class="ringtone-download">
             {% if ringtone.android_ringtone_file %}
             <div class="download-btn-mp3">
@@ -96,13 +96,13 @@
         </div>
         {% if site_config.ads_script %}
         <div class="container">
-            <div class="ad-container">
+            <div class="ad-container ad">
                 {{site_config.ads_script|safe}}
             </div>
         </div>
         {% endif %}
-        <div class='modal-body flex vcenter center'>
-            <ul class="flex">
+        <div class='modal-body'>
+            <ul>
                 <li><a href="whatsapp://send?text={{request.build_absolute_uri}}" rel='noopener' target='_blank'><i
                             class="fa fa-whatsapp"></i></a></li>
                 <li><a href='https://facebook.com/sharer/sharer.php?u={{request.build_absolute_uri}}' rel='noopener' target='_blank'><i class="fa fa-facebook"></i></a></li>

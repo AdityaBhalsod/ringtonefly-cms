@@ -1,14 +1,14 @@
 {% load cms_tags menu_tags sekizai_tags %}
-<nav class="flex space-between vcenter">
+<nav >
     <div class="navbtn">
         <i class="fa fa-bars"></i>
     </div>
-    <div class="brandname flex vcenter">
+    <div class="brandname">
         <i class="fa fa-music"></i><a href="/">{{site_config.site_name}}</a>
     </div>
     <div class="menu">
-        <div class="navmenu flex vcenter">
-            <ul class="flex">
+        <div class="navmenu">
+            <ul class="f-nav">
                 {% show_menu 0 10 10 10 "navbar/menu-desktop.html" %}
             </ul>
             <div class="searchbtn">
@@ -24,7 +24,7 @@
     </ul>
 </div>
 <div class="search-input">
-    <form action="{% url 'search_ringtone' %}" method="GET" class="flex space-between">
+    <form action="{% url 'search_ringtone' %}" method="GET">
         <input type="text" id="searchInput" name="query" placeholder="Search Ringtone">
         <button id="searchBtn" type="submit"><i class="fa fa-search"></i></button>
     </form>

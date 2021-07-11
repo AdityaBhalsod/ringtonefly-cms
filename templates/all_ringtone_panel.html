@@ -1,13 +1,13 @@
 {% load helping_filter sekizai_tags %} {% addtoblock "category_tag" %} {{ current_category_object.meta_tag|safe }} {% endaddtoblock %} {% if current_category_ringtone %}
 <div class="container">
-    <div class="ringtone-area flex space-around flex-wrap">
+    <div class="ringtone-area">
         {% for ringtone in current_category_ringtone %}
-        <div class="ringtone-player flex vcenter blogBox6 moreBox6" style="display: none;">
+        <div class="ringtone-player blogBox6 moreBox6" style="display: none;">
             <div class="play-btn">
                 <i class="fa fa-play-circle"></i>
                 <i class="fa fa-snowflake-o"></i>
                 <span class="track">
-                    <audio id="audio" controls>
+                    <audio id="audio" controls preload="none">
                         {% if ringtone and ringtone.android_ringtone_file %}
                         <source src="{{ringtone.android_ringtone_file.url}}" type="audio/mpeg">
                         {% elif ringtone and ringtone.iphone_ringtone_file %}
@@ -28,7 +28,7 @@
         {% endfor %}
     </div>
     {% if current_category_ringtone %}
-    <div class="loadm flex center">
+    <div class="loadm">
         <a href="javascript:void(0)" id="loadMore6"> Load More</a>
     </div>
     {% endif %}

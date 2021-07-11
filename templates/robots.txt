@@ -13,4 +13,4 @@ User-agent: OmniExplorer_Bot
 User-agent: BoardReader
 Disallow: /
 
-Sitemap: https://ringtonefly.co/sitemap.xml
+Sitemap: https://www.ringtonefly.co/sitemap.xml

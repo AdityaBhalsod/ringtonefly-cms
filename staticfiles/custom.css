@@ -7,6 +7,6 @@
     font-family: 'Courier New', Courier, monospace
 }
 
-::-webkit-scrollbar {
-    width: 5px;  /* Remove scrollbar space */
+nav .menu-drop::-webkit-scrollbar {
+    width: 5px;   
 }

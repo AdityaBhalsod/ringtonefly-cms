@@ -72,12 +72,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+
 STATIC_URL = "/static/"
 MEDIA_URL = "/media/"
 
 MEDIA_ROOT = os.path.join(DATA_DIR, "media")
 STATIC_ROOT = os.path.join(DATA_DIR, "static")
-
+ 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "staticfiles"),)
 SITE_ID = 1
 
@@ -201,15 +202,17 @@ CMS_PLACEHOLDER_CONF = {}
 
 DATABASES: Dict[str, Dict[str, Union[str, int]]] = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "HOST": os.getenv("DATABASE_HOST", "127.0.0.1"),
-        "NAME": os.getenv("DATABASE_NAME", "ringtone-cms"),
-        "USER": os.getenv("DATABASE_USER", "postgres"),
-        "PASSWORD": os.getenv("DATABASE_PASSWORD", "password"),
+        "ENGINE": "django.db.backends.mysql",
+        "HOST": "localhost",
+        "NAME": "statxumt_ringtonefly",
+        "USER": "statxumt_ringtonefly",
+        "PASSWORD": "}4lu.1o};GJ7",
+        "PORT": "3306",
         "CONN_MAX_AGE": 500,
         "ATOMIC_REQUESTS": True,
     }
 }
+
 
 THUMBNAIL_PROCESSORS = (
     "easy_thumbnails.processors.colorspace",
@@ -219,9 +222,9 @@ THUMBNAIL_PROCESSORS = (
 )
 
 SUPER_USER = {
-    "ADMIN_EMAIL": os.getenv("ADMIN_EMAIL"),
-    "ADMIN_USERNAME": os.getenv("ADMIN_USERNAME"),
-    "ADMIN_PASSWORD": os.getenv("ADMIN_PASSWORD"),
+    "ADMIN_EMAIL": "admin@ringtonefly.com",
+    "ADMIN_USERNAME":"ringtonefly",
+    "ADMIN_PASSWORD": "password@123"
 }
 
 
@@ -240,6 +243,6 @@ CKEDITOR_CONFIGS = {
 
 
 DJANGOCMS_REDIRECT_USE_REQUEST = True
-ADSTXT_CACHE_TIMEOUT = 60 * 60 * 24
+ADSTXT_CACHE_TIMEOUT = 60*60*24
 
 PREPEND_WWW = True
