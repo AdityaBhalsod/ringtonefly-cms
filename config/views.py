@@ -3,10 +3,11 @@ from datetime import datetime
 
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import F
-from django.core import serializers
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
+
+from config.number_system import numerize
 
 from .models import ContactUs, LimitationObject, Ringtone, Top50
 
@@ -134,7 +135,7 @@ def ringtone_serialization(objects):
             "audio/mpeg" if ringtone.android_ringtone_file else "audio/x-m4r"
         )
         object["ringtone_page_url"] = ringtone.page.get_public_url()
-        object["download_count"] = ringtone.download_count
+        object["download_count"] = numerize(ringtone.download_count)
         results.append(object)
     return results
 
@@ -159,7 +160,7 @@ def popular_ringtone(request):
         results = ringtone_serialization(paginator.object_list)
         return JsonResponse(
             {
-                "popularRingtones": results,
+                "ringtoneObjects": results,
                 "currentPageNumber": page_number,
                 "hasNext": has_next_object,
             }
@@ -185,7 +186,7 @@ def new_ringtone(request):
         results = ringtone_serialization(paginator.object_list)
         return JsonResponse(
             {
-                "newRingtones": results,
+                "ringtoneObjects": results,
                 "currentPageNumber": page_number,
                 "hasNext": has_next_object,
             }
@@ -213,7 +214,7 @@ def individual_ringtone(request):
         results = ringtone_serialization(paginator.object_list)
         return JsonResponse(
             {
-                "newRingtones": results,
+                "ringtoneObjects": results,
                 "currentPageNumber": page_number,
                 "hasNext": has_next_object,
             }
@@ -229,7 +230,7 @@ def top_50_ringtone(request):
     except Exception:
         top50_pagination = 12
 
-    ringtone_objects = Top50.objects.all().order_by("-created_at")[top50_pagination:]
+    ringtone_objects = Top50.objects.all()[top50_pagination:]
 
     if ringtone_objects:
         paginator, page_number = set_paginator(
@@ -255,11 +256,11 @@ def top_50_ringtone(request):
                 else "audio/x-m4r"
             )
             object["ringtone_page_url"] = instance.ringtone.page.get_public_url()
-            object["download_count"] = instance.ringtone.download_count
+            object["download_count"] = numerize(instance.ringtone.download_count)
             results.append(object)
         return JsonResponse(
             {
-                "top50Ringtones": results,
+                "ringtoneObjects": results,
                 "currentPageNumber": page_number,
                 "hasNext": has_next_object,
             }
@@ -284,7 +285,6 @@ def category_releted_ringtone(request):
         "-created_at"
     )[category_page_pagination:]
 
-
     if ringtone_objects:
         paginator, page_number = set_paginator(
             request=request, objects_list=ringtone_objects
@@ -293,7 +293,7 @@ def category_releted_ringtone(request):
         results = ringtone_serialization(paginator.object_list)
         return JsonResponse(
             {
-                "newRingtones": results,
+                "ringtoneObjects": results,
                 "currentPageNumber": page_number,
                 "hasNext": has_next_object,
             }

@@ -143,7 +143,7 @@ class Favorite(CMSPluginBase):
         context["new_ringtones"] = ringtone_objects.order_by("-created_at")[
             0:new_pagination
         ]
-        context["top50"] = instance.top50_field.all().order_by("-created_at")[0:top50_pagination]
+        context["top50"] = instance.top50_field.all()[0:top50_pagination]
 
         return context
 

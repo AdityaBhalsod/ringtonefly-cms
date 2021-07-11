@@ -39,8 +39,8 @@ urlpatterns = [
     # ######## api v1 ########
     path("api/v1/popular-ringtone", popular_ringtone, name="popular_ringtone"),
     path("api/v1/new-ringtone", new_ringtone, name="new_ringtone"),
-    path("api/v1/individual-ringtone", individual_ringtone, name="individual_ringtone"),
     path("api/v1/top-50-ringtone", top_50_ringtone, name="top_50_ringtone"),
+    path("api/v1/individual-ringtone", individual_ringtone, name="individual_ringtone"),
     path(
         "api/v1/category-releted-ringtone",
         category_releted_ringtone,

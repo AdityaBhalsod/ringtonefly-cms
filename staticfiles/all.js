@@ -84,55 +84,6 @@ $(document).ready(function () {
         $(".tab-panel").removeClass("active"),
         $("#" + a).addClass("active");
     }),
-    $(".ringtone-player .play-btn .fa-play-circle").on("click", function (e) {
-      $(this).parent().find(".fa-play-circle").css("display", "none"),
-        $(this).parent().find(".fa-snowflake-o").css("display", "inline-block"),
-        $(".fa-play-circle")
-          .not(this)
-          .parent()
-          .find(".fa-snowflake-o")
-          .css("display", "none"),
-        $(".fa-play-circle")
-          .not(this)
-          .parent()
-          .find(".fa-play-circle")
-          .css("display", "inline-block"),
-        $(this).parent().parent().addClass("isPlaying"),
-        $(".fa-play-circle")
-          .not(this)
-          .parent()
-          .parent()
-          .removeClass("isPlaying"),
-        $(this)
-          .parent()
-          .parent()
-          .find(".beat_animation ul li")
-          .css("animation-play-state", "running")
-          .css("opacity", "1"),
-        $(".fa-play-circle")
-          .not(this)
-          .parent()
-          .parent()
-          .find(".beat_animation ul li")
-          .css("animation-play-state", "paused")
-          .css("opacity", ".1"),
-        $("audio").each(function (a) {
-          a !== e.currentTarget && $(this)[0].pause();
-        }),
-        $(this).parent().parent().find(".track audio")[0].play();
-    }),
-    $(".ringtone-player .play-btn .fa-snowflake-o").on("click", function () {
-      $(this).parent().find(".fa-snowflake-o").css("display", "none"),
-        $(this).parent().find(".fa-play-circle").css("display", "inline-block"),
-        $(this).parent().parent().find(".track audio")[0].pause();
-    }),
-    $("audio").on("ended", function () {
-      $(".ringtone-player .play-btn .fa-snowflake-o").css("display", "none"),
-        $(".ringtone-player .play-btn .fa-play-circle").css(
-          "display",
-          "inline-block"
-        );
-    }),
     $(".share-btn").click(function () {
       $(".modale").addClass("opened");
     }),

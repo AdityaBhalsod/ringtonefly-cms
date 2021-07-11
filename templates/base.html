@@ -14,9 +14,6 @@
     <!-- ################################################################################################################ -->
 
     <link rel="stylesheet" href="{% static 'style.css' %}">
-  
-     
-
 
     <title>{% if "Home" in request.current_page.get_menu_title %}Download Ringtone New Mp3 or M4r{% else %}{% block title %}{% endblock title %}{% endif %} » {% if site_config %}{{site_config.site_title}}{% endif %}</title>
     {% render_block "css" %} {% if "Home" in request.current_page.get_menu_title %}
@@ -50,7 +47,8 @@
     {% cms_toolbar %} {% include "navbar/main.html" %} {% include "brandcamps.html" %} {% block content %} {% endblock content %} {% include "footer.html" %} {% render_block "js" %}
     <script src="{% static 'jquery.min.js' %}"></script>
     <script src="{% static 'all.js' %}"></script>
-   
+    <script src="{% static 'load.js' %}"></script>   
+    <script src="{% static 'audio.js' %}"></script>
 
     {% if site_config and site_config.bottem_ads_script %}
     <div id="_adBottom">

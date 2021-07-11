@@ -13,12 +13,7 @@
     <!-- All meta tag for current site -->
     <!-- ################################################################################################################ -->
 
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-    <link rel="stylesheet" href="{% static 'custom.css' %}">
-    <link rel="stylesheet" href="{% static 'share.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'style.css' %}">    
 
     <title>
         {% if query %} {{query}} {% endif %} » {% if site_config %}{{site_config.site_title}}{% endif %}
@@ -111,12 +106,10 @@
 
 
     {% include "footer.html" %} {% render_block "js" %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="{% static 'custom.js' %}"></script>
-    <script src="{% static 'app.js' %}"></script>
-    <script src="{% static 'share.js' %}"></script>
-    <script src="{% static 'player.js' %}"></script>
-    <script src="{% static 'loadmore.js' %}"></script>
+    <script src="{% static 'jquery.min.js' %}"></script>
+    <script src="{% static 'all.js' %}"></script>
+    <script src="{% static 'load.js' %}"></script>   
+    <script src="{% static 'audio.js' %}"></script>
 
     {% if site_config and site_config.bottem_ads_script %}
     <div id="_adBottom">
