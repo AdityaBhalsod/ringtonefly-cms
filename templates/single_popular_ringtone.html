@@ -5,7 +5,7 @@
         {% if popular_ringtones %}
         <div class="ringtone-area">
             {% for ringtone in popular_ringtones %}
-            <div class="ringtone-player">
+            <div class="ringtone-player" id="singlePopularRingtone">
                 <div class="play-btn">
                     <i class="fa fa-play-circle"></i>
                     <i class="fa fa-snowflake-o"></i>
@@ -36,7 +36,7 @@
     </div>
     {% if popular_ringtones %}
     <div class="loadm">
-        <a href="javascript:void(0)" id="loadMore5"> Load More</a>
+        <a href="javascript:void(0)" id="loadMoreSinglePopularRingtone"> Load More</a>
     </div>
     {% endif %}
 </div>

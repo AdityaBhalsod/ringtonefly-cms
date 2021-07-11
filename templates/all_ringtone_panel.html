@@ -2,7 +2,7 @@
 <div class="container">
     <div class="ringtone-area">
         {% for ringtone in current_category_ringtone %}
-        <div class="ringtone-player blogBox6 moreBox6">
+        <div class="ringtone-player" id="categoryReletedRingtone">
             <div class="play-btn">
                 <i class="fa fa-play-circle"></i>
                 <i class="fa fa-snowflake-o"></i>
@@ -29,7 +29,7 @@
     </div>
     {% if current_category_ringtone %}
     <div class="loadm">
-        <a href="javascript:void(0)" id="loadMore6"> Load More</a>
+        <a href="javascript:void(0)" id="loadMoreCategoryReletedRingtone"> Load More</a>
     </div>
     {% endif %}
 </div>
