@@ -56,9 +56,9 @@
             </div>
         </div>
         {% endif %} {% if ringtones %}
-        <div class="ringtone-area" id="searchResult">
+        <div class="ringtone-area">
             {% for ringtone in ringtones %}
-            <div class="ringtone-player blogBox4 moreBox4" style="display: none;">
+            <div class="ringtone-player">
                 <div class="play-btn">
                     <i class="fa fa-play-circle"></i>
                     <i class="fa fa-snowflake-o"></i>
@@ -84,15 +84,10 @@
             {% endfor %}
         </div>
         {% else %}
-        <div class="ringtone-area" id="searchResult">
+        <div class="ringtone-area">
             <h1>Not found!</h1>
         </div>
-
         {% endif %}
-
-        <div class="loadm" id="searchloadMoreBtn" style="display: none;">
-            <a href="javascript:void(0)" id="loadMore4"> Load More</a>
-        </div>
 
         <!-- Ad -->
         {% if site_config.ads_script %}
