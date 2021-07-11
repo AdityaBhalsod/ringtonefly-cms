@@ -10,6 +10,7 @@ from .models import (
     ContainerPlugin,
     FavoritePlugin,
     FetchRingtonePlugin,
+    LimitationObject,
     Ringtone,
     SingleFavoritePlugin,
     SingleRingtonePlugin,
@@ -95,13 +96,19 @@ class FetchRingtone(CMSPluginBase):
     cache = False
 
     def render(self, context, instance, placeholder):
+        try:
+            limit = LimitationObject.objects.first()
+            pagination = limit.category_page
+        except Exception: 
+            pagination = 12
+        
         context = super(FetchRingtone, self).render(context, instance, placeholder)
         context["current_category_ringtone"] = Ringtone.objects.filter(
             category__slug=context["request"].current_page.get_slug()
-        )
+        ).order_by("-created_at")[0:pagination]
         context["current_category_object"] = Category.objects.filter(
             slug=context["request"].current_page.get_slug()
-        ).last()        
+        ).last()
         return context
 
 
@@ -115,7 +122,29 @@ class Favorite(CMSPluginBase):
     cache = False
 
     def render(self, context, instance, placeholder):
+        try:
+            limit = LimitationObject.objects.first()
+            popular_pagination = limit.popular_container
+            new_pagination = limit.new_container
+            top50_pagination = limit.top_50_container
+        except Exception: 
+            popular_pagination = 12
+            new_pagination = 12
+            top50_pagination = 12
+
+
         context = super(Favorite, self).render(context, instance, placeholder)
+
+        ringtone_objects = Ringtone.objects.all()
+
+        context["popular_ringtones"] = ringtone_objects.order_by("-download_count")[
+            0:popular_pagination
+        ]
+        context["new_ringtones"] = ringtone_objects.order_by("-created_at")[
+            0:new_pagination
+        ]
+        context["top50"] = instance.top50_field.all().order_by("-created_at")[0:top50_pagination]
+
         return context
 
 
@@ -128,6 +157,16 @@ class SingleFavorite(CMSPluginBase):
     cache = False
 
     def render(self, context, instance, placeholder):
-        context = super(SingleFavorite, self).render(context, instance, placeholder)
-        return context
+        try:
+            limit = LimitationObject.objects.first()
+            pagination = limit.individual_ringtone_page
+        except Exception: 
+            pagination = 12
 
+        context = super(SingleFavorite, self).render(context, instance, placeholder)
+        context["popular_ringtones"] = (
+            Ringtone.objects.all()
+            .exclude(slug=context["request"].current_page.get_slug())
+            .order_by("-download_count")[0:pagination]
+        )
+        return context

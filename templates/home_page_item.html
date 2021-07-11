@@ -1,4 +1,5 @@
-{% load helping_filter %} {% if instance %}
+{% load helping_filter %} 
+{% if instance %}
 <div class="container">
     <div class="cat-area">
         <div class="cat-list">
@@ -9,7 +10,7 @@
                 <li>
                     <a href="javascript:void(0)" data-tab="tab2" class="tab-link">New</a>
                 </li>
-                {% if instance and instance.top50_field.all %}
+                {% if top50 %}
                 <li>
                     <a href="javascript:void(0)" data-tab="tab3" class="tab-link">Top 50</a>
                 </li>
@@ -89,10 +90,10 @@
                 <a href="javascript:void(0)" id="loadMore2"> Load More</a>
             </div>
         </div>
-        {% if instance and instance.top50_field.all %}
+        {% if top50 %}
         <div class="tab-panel" id="tab3">
             <div class="ringtone-area">
-                {% for item3 in instance.top50_field.all %}
+                {% for item3 in top50 %}
                 <div class="ringtone-player blogBox3 moreBox3" style="display: none;">
                     <div class="play-btn">
                         <i class="fa fa-play-circle"></i>

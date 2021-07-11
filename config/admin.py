@@ -10,6 +10,7 @@ from config.models import (
     ContactUs,
     FooterHyperlinkAdmin,
     FooterPlugin,
+    LimitationObject,
     LinkModelAdmin,
     MetaModelAdmin,
     Ringtone,
@@ -92,6 +93,20 @@ class SEOToolAdmin(BaseAdmin):
     def has_add_permission(self, request):
         # if there's already an entry, do not allow adding
         count = SEOTool.objects.all().count()
+        if count == 0:
+            return True
+
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(LimitationObject)
+class FooterAdmin(BaseAdmin):
+    def has_add_permission(self, request):
+        # if there's already an entry, do not allow adding
+        count = LimitationObject.objects.all().count()
         if count == 0:
             return True
 

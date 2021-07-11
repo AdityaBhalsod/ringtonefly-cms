@@ -521,3 +521,14 @@ class SingleFavoritePlugin(CMSPlugin):
 
 
 ############################################################################################
+
+class LimitationObject(BaseModel):
+    popular_container = models.PositiveIntegerField(default=12)
+    new_container = models.PositiveIntegerField(default=12)
+    top_50_container = models.PositiveIntegerField(default=12)
+    category_page = models.PositiveIntegerField(default=12)
+    individual_ringtone_page = models.PositiveIntegerField(default=12)
+
+    def __str__(self):
+        return "Limitation"
+############################################################################################
