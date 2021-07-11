@@ -1,4 +1,4 @@
-{% load helping_filter %}
+{% load static helping_filter %}
 <div class="container3">
     <div class="post-in-popular">
         <h2 class="pop">Popular Ringtone</h2>
@@ -38,6 +38,7 @@
     {% if popular_ringtones %}
     <div class="loadm">
         <a href="javascript:void(0)" id="loadMoreSinglePopularRingtone"> Load More</a>
+        <img src="{% static 'loading.gif' %" id="loading" />
     </div>
     {% endif %}
 </div>

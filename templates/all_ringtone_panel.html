@@ -1,4 +1,4 @@
-{% load helping_filter sekizai_tags %} {% addtoblock "category_tag" %} {{ current_category_object.meta_tag|safe }} {% endaddtoblock %} {% if current_category_ringtone %}
+{% load static helping_filter sekizai_tags %} {% addtoblock "category_tag" %} {{ current_category_object.meta_tag|safe }} {% endaddtoblock %} {% if current_category_ringtone %}
 <div class="container">
     <input id="categoryReletedRingtoneGetUrl" type="hidden" value="{% url 'category_releted_ringtone' %}"/>
     <input id="categoryReletedRingtoneGetSlug" type="hidden" value="{{ request.current_page.get_slug }}"/>
@@ -32,6 +32,7 @@
     {% if current_category_ringtone %}
     <div class="loadm">
         <a href="javascript:void(0)" id="loadMoreCategoryReletedRingtone"> Load More</a>
+        <img src="{% static 'loading.gif' %" id="loading" />
     </div>
     {% endif %}
 </div>
