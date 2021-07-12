@@ -4,6 +4,9 @@ Disallow: /admin/
 Disallow: /search
 Disallow: /static
 Disallow: /media
+Disallow: /api/v1/*
+Disallow: /api*
+
 
 User-agent: turnitinbot
 User-agent: NPBot

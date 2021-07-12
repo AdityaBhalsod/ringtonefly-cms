@@ -13,7 +13,7 @@ $(document).ready(function () {
 
   var singlePopularRingtonePageCount = 0;
   var singlePopularRingtoneHasNext = true;
-
+  $('#loading').hide();
 
   function ringtoneHtmlContent(value){
 	  var htmlContent = "<div class='ringtone-player'>\
@@ -39,6 +39,7 @@ $(document).ready(function () {
   }
   $("#loadMorePopularRingtone").click(function (e) {
     popularRingtonePageCount++;
+    $('#loading').hide();
     if (popularRingtoneHasNext == true) {
       $.ajax({
         url:
@@ -69,6 +70,7 @@ $(document).ready(function () {
     }
   });
   $("#loadMoreNewRingtone").click(function (e) {
+  $('#loading').hide();
     newRingtonePageCount++;
     if (newRingtoneHasNext == true) {
       $.ajax({
@@ -97,6 +99,7 @@ $(document).ready(function () {
     }
   });
   $("#loadMoreTop50Ringtone").click(function (e) {
+      $('#loading').hide();
     top50RingtonePageCount++;
     if (top50RingtoneHasNext == true) {
       $.ajax({
@@ -126,6 +129,7 @@ $(document).ready(function () {
     }
   });
   $("#loadMoreCategoryReletedRingtone").click(function (e) {
+      $('#loading').hide();
     categoryReletedRingtonePageCount++;
     if (CategoryReletedRingtoneHasNext == true) {
       $.ajax({
@@ -161,6 +165,7 @@ $(document).ready(function () {
     }
   });
   $("#loadMoreSinglePopularRingtone").click(function (e) {
+      $('#loading').hide();
     singlePopularRingtonePageCount++;
     if (singlePopularRingtoneHasNext == true) {
       $.ajax({
