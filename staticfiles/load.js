@@ -13,7 +13,12 @@ $(document).ready(function () {
 
   var singlePopularRingtonePageCount = 0;
   var singlePopularRingtoneHasNext = true;
+
   $('#loading').hide();
+  $('#loadingPopular').hide();
+  $('#loadingNew').hide();
+  $('#loadingTop50').hide();
+  
 
   function ringtoneHtmlContent(value){
 	  var htmlContent = "<div class='ringtone-player'>\
@@ -39,7 +44,7 @@ $(document).ready(function () {
   }
   $("#loadMorePopularRingtone").click(function (e) {
     popularRingtonePageCount++;
-    $('#loading').hide();
+    $('#loadingPopular').hide();
     if (popularRingtoneHasNext == true) {
       $.ajax({
         url:
@@ -50,10 +55,10 @@ $(document).ready(function () {
         type: "GET",
         processData: !1,
         beforeSend: function(){
-          $('#loading').show();
+          $('#loadingPopular').show();
         },
         success: function (e) {
-          $('#loading').hide();
+          $('#loadingPopular').hide();
           if (e) {
             if (e.hasNext == false) {
               $("#loadMorePopularRingtone").hide();
@@ -70,7 +75,7 @@ $(document).ready(function () {
     }
   });
   $("#loadMoreNewRingtone").click(function (e) {
-  $('#loading').hide();
+  $('#loadingNew').hide();
     newRingtonePageCount++;
     if (newRingtoneHasNext == true) {
       $.ajax({
@@ -79,10 +84,10 @@ $(document).ready(function () {
         type: "GET",
         processData: !1,
         beforeSend: function(){
-          $('#loading').show();
+          $('#loadingNew').show();
         },
         success: function (e) {
-          $('#loading').hide();
+          $('#loadingNew').hide();
           if (e) {
             if (e.hasNext == false) {
               $("#loadMoreNewRingtone").hide();
@@ -99,7 +104,7 @@ $(document).ready(function () {
     }
   });
   $("#loadMoreTop50Ringtone").click(function (e) {
-      $('#loading').hide();
+    $('#loadingTop50').hide();
     top50RingtonePageCount++;
     if (top50RingtoneHasNext == true) {
       $.ajax({
@@ -109,10 +114,10 @@ $(document).ready(function () {
         type: "GET",
         processData: !1,
         beforeSend: function(){
-          $('#loading').show();
+          $('#loadingTop50').show();
         },
         success: function (e) {
-          $('#loading').hide();
+          $('#loadingTop50').hide();
           if (e) {
             if (e.hasNext == false) {
               $("#loadMoreTop50Ringtone").hide();
