@@ -15,6 +15,7 @@ from django.template.response import TemplateResponse
 from django.urls import path, reverse
 from django.utils import translation
 from django.utils.http import http_date
+from config.models import Ringtone, Category
 
 LIMIT = settings.SITEMAPS_PAGE_PER_ITEM
 
@@ -268,6 +269,8 @@ class PageSitemaps(BaseSitemaps):
     def items(self):
         query_filter = self.get_query_filter()
         query_filter.add(Q(page__type=1), Q.AND)
+        query_filter.add(Q(page__publisher_is_draft=False), Q.AND)
+        query_filter.add(Q(page__soft_root=True), Q.AND)
         all_titles = (
             Title.objects.filter(query_filter).order_by("page__node__path").distinct()
         )
