@@ -248,6 +248,6 @@ ADSTXT_CACHE_TIMEOUT = 60*60*24
 PREPEND_WWW = True
 
 try:
-    from . import local # noqa
+    from .local import *  # noqa
 except Exception:
     pass

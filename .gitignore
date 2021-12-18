@@ -148,7 +148,4 @@ dmypy.json
 # profiling data
 .prof
 
-# Django migrations
-migrations/
-
 local.py
