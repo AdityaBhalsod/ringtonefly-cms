@@ -291,7 +291,7 @@ SITEMAPS = [
         SITEMAP_URL,
         index,
         SITEMAP_OBJECT,
-        name="django.contrib.sitemaps.views.index",
+        name="config.sitemaps.index",
     ),
     path(
         SITEMAP_SECTION_WITH,
