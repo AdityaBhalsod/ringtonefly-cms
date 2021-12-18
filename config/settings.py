@@ -246,3 +246,8 @@ DJANGOCMS_REDIRECT_USE_REQUEST = True
 ADSTXT_CACHE_TIMEOUT = 60*60*24
 
 PREPEND_WWW = True
+
+try:
+    from . import local # noqa
+except Exception:
+    pass
