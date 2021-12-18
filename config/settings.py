@@ -247,7 +247,7 @@ ADSTXT_CACHE_TIMEOUT = 60*60*24
 
 PREPEND_WWW = True
 
-SITEMAPS_PAGE_PER_ITEM = 25
+SITEMAPS_PAGE_PER_ITEM = 5000
 
 try:
     from .local import *  # noqa

@@ -3,10 +3,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 from django.urls.conf import re_path
-from cms.sitemaps import CMSSitemap
-from django.contrib.sitemaps.views import sitemap, index
 from django.views.generic.base import TemplateView
-from config.sitemaps import SITEMAP_URL, SITEMAP_SECTION, SITEMAP_OBJECT
+from config.sitemaps import SITEMAPS
 
 from .views import (
     category_releted_ringtone,
@@ -43,28 +41,13 @@ urlpatterns = [
         name="category_releted_ringtone",
     ),
     # ######## api v1 ########
-
-    # ######## sitemaps ######
-    path(
-        SITEMAP_URL,
-        index,
-        SITEMAP_OBJECT,
-        name="django.contrib.sitemaps.views.index",
-    ),
-    path(
-        SITEMAP_SECTION,
-        sitemap,
-        SITEMAP_OBJECT,
-        "django.contrib.sitemaps.views.sitemap",
-    ),
-    # ######## sitemaps ######
     path("ckeditor/", include("ckeditor_uploader.urls")),
     path(
         "robots.txt",
         TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
     ),
     re_path(r"^ads\.txt", include("ads_txt.urls")),
-]
+] + SITEMAPS
 
 
 urlpatterns += [
