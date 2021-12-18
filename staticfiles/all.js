@@ -91,6 +91,11 @@ $(document).ready(function () {
       $(".modale").removeClass("opened");
     });
 });
+
+$(window).on('load', function() {
+  $('.ringtone-area').css('height', 'auto')
+});
+
 const audioPlayer = document.querySelector(".audio-player");
 
 try {

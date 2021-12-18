@@ -237,7 +237,7 @@ class FooterPlugin(CMSPlugin):
         _("Tagline"), max_length=255, help_text="Tagline of footer."
     )
     copyright = models.CharField(
-        _("Copyright line"), max_length=255, help_text="Copyright line of footer."
+        _("Copyright line"), max_length=1000, help_text="Copyright line of footer."
     )
 
     def copy_relations(self, oldinstance):
@@ -332,7 +332,7 @@ class ContactUsPlugin(CMSPlugin):
         default="Contact Us",
     )
     tagline = models.CharField(
-        _("Tagline"), max_length=255, help_text="Tagline of contact us."
+        _("Tagline"), max_length=1000, help_text="Tagline of contact us."
     )
 
 

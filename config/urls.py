@@ -22,7 +22,7 @@ from django.views.generic.base import TemplateView
 admin.autodiscover()
 
 # sitemap configuration
-CMSSitemap.changefreq = "weekly"
+CMSSitemap.changefreq = "daily"
 CMSSitemap.priority = 1.0
 
 
