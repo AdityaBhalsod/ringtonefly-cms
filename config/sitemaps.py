@@ -270,6 +270,7 @@ class PageSitemaps(BaseSitemaps):
         query_filter = self.get_query_filter()
         query_filter.add(Q(page__type=1), Q.AND)
         query_filter.add(Q(page__publisher_is_draft=False), Q.AND)
+        query_filter.add(Q(page__in_navigation=True), Q.AND)
         query_filter.add(Q(page__soft_root=True), Q.AND)
         all_titles = (
             Title.objects.filter(query_filter).order_by("page__node__path").distinct()
