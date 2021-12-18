@@ -85,9 +85,7 @@ class SiteConfigAdmin(BaseAdmin):
 
 @admin.register(SEOTool)
 class SEOToolAdmin(BaseAdmin):
-    inlines = [
-        MetaModelAdmin,LinkModelAdmin
-    ]
+    inlines = [MetaModelAdmin, LinkModelAdmin]
     exclude = ["sortable"]
 
     def has_add_permission(self, request):

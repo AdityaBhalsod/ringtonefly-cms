@@ -2,14 +2,17 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from cms import api
 from cms.api import add_plugin
 from cms.constants import TEMPLATE_INHERITANCE_MAGIC
+from cms.extensions import PageExtension
+from cms.extensions.extension_pool import extension_pool
 from cms.models import Page, Title
 from cms.models.pluginmodel import CMSPlugin
-from django.utils.text import slugify
-
-from django.db import models
-from django.utils.translation import ugettext_lazy as _
 from django.contrib import admin
 from django.core.validators import FileExtensionValidator
+from django.db import models
+from django.utils.text import slugify
+from django.utils.translation import ugettext_lazy as _
+
+from cms.models.choice import PAGE_TYPE
 
 
 def audio_android_file_extension_validator():
@@ -93,6 +96,7 @@ class Category(BaseModel):
                 in_navigation=False,
                 template=TEMPLATE_INHERITANCE_MAGIC,
                 published=False,
+                page_type=2 # Category
             )
             self.title = Title.objects.get(page=page)
             self.page = page
@@ -189,6 +193,7 @@ class Ringtone(BaseModel):
                 in_navigation=False,
                 template=TEMPLATE_INHERITANCE_MAGIC,
                 published=False,
+                page_type=3 # Ringtone
             )
             self.title = Title.objects.get(page=page)
             self.page = page
@@ -296,7 +301,9 @@ class ContainerPlugin(CMSPlugin):
     )
     updated_at = models.DateTimeField(auto_now=True)
 
+
 ############################################################################################
+
 
 class ContainerPluginV2(CMSPlugin):
     title = models.CharField(
@@ -309,6 +316,7 @@ class ContainerPluginV2(CMSPlugin):
     content = RichTextUploadingField(
         _("Content"), default="", help_text="Content of container"
     )
+
 
 ############################################################################################
 class AboutUsPlugin(CMSPlugin):

@@ -1,29 +1,26 @@
-from cms.sitemaps import CMSSitemap
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
 from django.urls.conf import re_path
+from cms.sitemaps import CMSSitemap
+from django.contrib.sitemaps.views import sitemap, index
+from django.views.generic.base import TemplateView
+from config.sitemaps import SITEMAP_URL, SITEMAP_SECTION, SITEMAP_OBJECT
+
 from .views import (
     category_releted_ringtone,
     contact_us,
     individual_ringtone,
     new_ringtone,
     popular_ringtone,
-    rigntone_incress_download,
     react,
+    rigntone_incress_download,
     search_ringtone,
     top_50_ringtone,
 )
-from django.views.generic.base import TemplateView
-
 
 admin.autodiscover()
-
-# sitemap configuration
-CMSSitemap.changefreq = "daily"
-CMSSitemap.priority = 1.0
 
 
 urlpatterns = [
@@ -35,7 +32,6 @@ urlpatterns = [
         rigntone_incress_download,
         name="rigntone_incress_download",
     ),
-    
     # ######## api v1 ########
     path("api/v1/popular-ringtone", popular_ringtone, name="popular_ringtone"),
     path("api/v1/new-ringtone", new_ringtone, name="new_ringtone"),
@@ -48,7 +44,20 @@ urlpatterns = [
     ),
     # ######## api v1 ########
 
-    path("sitemap.xml", sitemap, {"sitemaps": {"cmspages": CMSSitemap}}),
+    # ######## sitemaps ######
+    path(
+        SITEMAP_URL,
+        index,
+        SITEMAP_OBJECT,
+        name="django.contrib.sitemaps.views.index",
+    ),
+    path(
+        SITEMAP_SECTION,
+        sitemap,
+        SITEMAP_OBJECT,
+        "django.contrib.sitemaps.views.sitemap",
+    ),
+    # ######## sitemaps ######
     path("ckeditor/", include("ckeditor_uploader.urls")),
     path(
         "robots.txt",
