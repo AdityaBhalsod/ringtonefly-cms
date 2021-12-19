@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-{% for location in sitemaps %}<sitemap><loc>{{ location }}</loc></sitemap>{% endfor %}
+{% for key, value in sitemaps.items %}
+    <sitemap>
+        <loc>{{ key }}</loc>
+        <lastmod>{{ value|date:"c" }}</lastmod>
+    </sitemap>
+{% endfor %}
 </sitemapindex>

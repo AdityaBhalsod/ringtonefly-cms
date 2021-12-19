@@ -15,7 +15,6 @@ from django.template.response import TemplateResponse
 from django.urls import path, reverse
 from django.utils import translation
 from django.utils.http import http_date
-from config.models import Ringtone, Category
 
 LIMIT = settings.SITEMAPS_PAGE_PER_ITEM
 
@@ -50,7 +49,7 @@ def index(
     req_protocol = request.scheme
     req_site = get_current_site(request)
 
-    sites = []  # all sections' sitemap URLs
+    sites = {}  # all sections' sitemap URLs
 
     for section, site in sitemaps.items():
         # For each section label, add links of all pages of its sitemap
@@ -61,20 +60,19 @@ def index(
         protocol = req_protocol if site.protocol is None else site.protocol
 
         # Add links to all pages of the sitemap.
-
         for page in range(1, site.paginator.num_pages + 1):
             if page == 1:
                 sitemap_url_name = "config.sitemaps.sitemap_without_page"
                 sitemap_url = reverse(sitemap_url_name, kwargs={"section": section})
                 absolute_url = "%s://%s%s" % (protocol, req_site.domain, sitemap_url)
-                sites.append(absolute_url)
+                sites[absolute_url] = site.get_sitemaps_last_mode()
             else:
                 sitemap_url_name = "config.sitemaps.sitemap_with_page"
                 sitemap_url = reverse(
                     sitemap_url_name, kwargs={"section": section, "page": page}
                 )
                 absolute_url = "%s://%s%s" % (protocol, req_site.domain, sitemap_url)
-                sites.append(absolute_url)
+                sites[absolute_url] = site.get_sitemaps_last_mode()
 
     return TemplateResponse(
         request,
@@ -219,6 +217,26 @@ class BaseSitemaps(Sitemap):
         query_filter.add(Q(published=True), Q.AND)
         return query_filter
 
+    def get_title_objects(self,query):
+        return Title.objects.filter(query)
+
+    def get_category_objects(self):
+        query_filter = self.get_query_filter()
+        query_filter.add(Q(page__type=2), Q.AND)
+        return self.get_title_objects(query_filter)
+
+    def get_ringtone_objects(self):
+        query_filter = self.get_query_filter()
+        query_filter.add(Q(page__type=3), Q.AND)
+        return self.get_title_objects(query_filter)
+
+    def get_page_objects(self):
+        query_filter = self.get_query_filter()
+        query_filter.add(Q(page__type=1), Q.AND)
+        query_filter.add(Q(page__publisher_is_draft=False), Q.AND)
+        query_filter.add(Q(Q(page__soft_root=True) | Q(page__in_navigation=True)), Q.AND)
+        return self.get_title_objects(query_filter)
+
     def lastmod(self, title):
         modification_dates = [title.page.changed_date, title.page.publication_date]
         plugins_for_placeholder = lambda placeholder: placeholder.get_plugins()
@@ -240,13 +258,11 @@ class RingtoneSitemaps(BaseSitemaps):
     changefreq = "monthly"
     priority = 0.5
 
-    def items(self):
-        query_filter = self.get_query_filter()
-        query_filter.add(Q(page__type=3), Q.AND)
-        all_titles = (
-            Title.objects.filter(query_filter).order_by("page__node__path").distinct()
-        )
-        return all_titles
+    def items(self):        
+        return self.get_ringtone_objects().order_by("page__node__path").distinct()
+    
+    def get_sitemaps_last_mode(self):
+        return self.get_ringtone_objects().latest("page__changed_date").page.changed_date
 
 
 class CategorySitemaps(BaseSitemaps):
@@ -254,28 +270,20 @@ class CategorySitemaps(BaseSitemaps):
     priority = 0.5
 
     def items(self):
-        query_filter = self.get_query_filter()
-        query_filter.add(Q(page__type=2), Q.AND)
-        all_titles = (
-            Title.objects.filter(query_filter).order_by("page__node__path").distinct()
-        )
-        return all_titles
+        return self.get_category_objects().order_by("page__node__path").distinct()
 
+    def get_sitemaps_last_mode(self):
+        return self.get_category_objects().latest("page__changed_date").page.changed_date
 
 class PageSitemaps(BaseSitemaps):
     changefreq = "monthly"
     priority = 0.5
 
     def items(self):
-        query_filter = self.get_query_filter()
-        query_filter.add(Q(page__type=1), Q.AND)
-        query_filter.add(Q(page__publisher_is_draft=False), Q.AND)
-        query_filter.add(Q(Q(page__soft_root=True) | Q(page__in_navigation=True)), Q.AND)
-        all_titles = (
-            Title.objects.filter(query_filter).order_by("page__node__path").distinct()
-        )
-        return all_titles
-
+        return self.get_page_objects().order_by("page__node__path").distinct()
+    
+    def get_sitemaps_last_mode(self):
+        return self.get_page_objects().latest("page__changed_date").page.changed_date
 
 # sitemaps url
 SITEMAP_URL = "sitemap.xml"
