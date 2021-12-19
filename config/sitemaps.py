@@ -223,17 +223,20 @@ class BaseSitemaps(Sitemap):
     def get_category_objects(self):
         query_filter = self.get_query_filter()
         query_filter.add(Q(page__type=2), Q.AND)
+        query_filter.add(Q(page__is_home=True, page__publisher_is_draft=False), Q.OR)
         return self.get_title_objects(query_filter)
 
     def get_ringtone_objects(self):
         query_filter = self.get_query_filter()
         query_filter.add(Q(page__type=3), Q.AND)
+        query_filter.add(Q(page__is_home=True, page__publisher_is_draft=False), Q.OR)
         return self.get_title_objects(query_filter)
 
     def get_page_objects(self):
         query_filter = self.get_query_filter()
         query_filter.add(Q(page__type=1), Q.AND)
         query_filter.add(Q(page__publisher_is_draft=False), Q.AND)
+        query_filter.add(Q(page__is_home=False), Q.AND)
         query_filter.add(Q(Q(page__soft_root=True) | Q(page__in_navigation=True)), Q.AND)
         return self.get_title_objects(query_filter)
 
@@ -255,8 +258,8 @@ class BaseSitemaps(Sitemap):
 
 
 class RingtoneSitemaps(BaseSitemaps):
-    changefreq = "monthly"
-    priority = 0.5
+    changefreq = "daily"
+    priority = 1
 
     def items(self):        
         return self.get_ringtone_objects().order_by("page__node__path").distinct()
@@ -266,8 +269,8 @@ class RingtoneSitemaps(BaseSitemaps):
 
 
 class CategorySitemaps(BaseSitemaps):
-    changefreq = "monthly"
-    priority = 0.5
+    changefreq = "daily"
+    priority = 1
 
     def items(self):
         return self.get_category_objects().order_by("page__node__path").distinct()
@@ -276,8 +279,8 @@ class CategorySitemaps(BaseSitemaps):
         return self.get_category_objects().latest("page__changed_date").page.changed_date
 
 class PageSitemaps(BaseSitemaps):
-    changefreq = "monthly"
-    priority = 0.5
+    changefreq = "weekly"
+    priority = 0.8
 
     def items(self):
         return self.get_page_objects().order_by("page__node__path").distinct()
