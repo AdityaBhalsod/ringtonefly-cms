@@ -1,9 +1,8 @@
-{% load static helping_filter sekizai_tags %} {% addtoblock "category_tag" %} {{ current_category_object.meta_tag|safe }} {% endaddtoblock %} {% if current_category_ringtone %}
+{% load static helping_filter sekizai_tags %} {% addtoblock "category_tag" %} {{ current_category_object.meta_tag|safe }} {% endaddtoblock %} 
+{% if current_category_ringtone %}
 <div class="container">
-    <input id="categoryReletedRingtoneGetUrl" type="hidden" value="{% url 'category_releted_ringtone' %}"/>
-    <input id="categoryReletedRingtoneGetSlug" type="hidden" value="{{ request.current_page.get_slug }}"/>
     <div class="ringtone-area" id="categoryReletedRingtone">
-        {% for ringtone in current_category_ringtone %}
+        {% for ringtone in page %}
         <div class="ringtone-player">
             <div class="play-btn">
                 <i class="fa fa-play-circle"></i>
@@ -29,11 +28,38 @@
         </div>
         {% endfor %}
     </div>
-    {% if current_category_ringtone %}
-    <div class="loadm">
-        <a href="javascript:void(0)" id="loadMoreCategoryReletedRingtone"> Load More</a>
-        <img src="{% static 'loading.gif' %}" id="loading" />
+
+    <div class="pagination">
+        <span>
+            <div style="text-align:left;">
+                {% if page.has_previous %}
+                    <a href="?page=1">&laquo; First</a>
+                    <a href="?page={{ page.previous_page_number }}">&lt;&lt;Left</a>
+                {% endif %}
+            </div>
+            <center>
+                <span class="current">
+                    {% for page_object in page.paginator %}
+                        <a href="?page={{ page_object.number }}">   
+                            {% if page_object.number is page.number %}
+                                <b>{{ page_object.number }}</b>
+                            {% else %}
+                                {{ page_object.number }}
+                            {% endif %}                            
+                        </a>
+                    {% endfor %}
+                </span>
+            </center>
+
+            <div style="text-align:right;">
+                {% if page.has_next %}
+                    <a href="?page={{ page.next_page_number }}">&gt;&gt;Next</a>
+                    <a href="?page={{ page.paginator.num_pages }}">Last &raquo;</a>
+                {% endif %}
+            </div>
+        </span>
     </div>
-    {% endif %}
 </div>
+<input id="categoryReletedRingtoneGetUrl" type="hidden" value="{% url 'category_releted_ringtone' %}"/>
+<input id="categoryReletedRingtoneGetSlug" type="hidden" value="{{ request.current_page.get_slug }}"/>
 {% endif %}

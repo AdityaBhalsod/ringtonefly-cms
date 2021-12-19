@@ -1,0 +1,81 @@
+{% load static helping_filter %} 
+
+<div class="container">
+    {% if site_config.ads_script %}
+    <div class="container">
+        <div class="ad-container">
+            {{site_config.ads_script|safe}}
+        </div>
+    </div>
+    {% endif %}
+    <div class="tab-pane">
+        <div class="tab-panel active">
+            <div class="tab-panel">
+                <div class="ringtone-area">
+                    {% for ringtone in page %}
+                    <div class="ringtone-player">
+                        <div class="play-btn">
+                            <i class="fa fa-play-circle"></i>
+                            <i class="fa fa-snowflake-o"></i>
+                            <span class="track">
+                                <audio id="audio" controls preload="none">
+                                    {% if ringtone and ringtone.android_ringtone_file %}
+                                    <source src="{{ringtone.android_ringtone_file.url}}" type="audio/mpeg">
+                                    {% elif ringtone and ringtone.iphone_ringtone_file %}
+                                    <source src="{{ringtone.iphone_ringtone_file.url}}" type="audio/x-m4r">
+                                    {% endif %}
+                                </audio>
+                            </span>
+                        </div>
+                        <div class="ringtone-info">
+                            <div class="categoryName"><a href="{{ringtone.category.page.get_public_url}}">{{ringtone.category.name}}</a>
+                            </div>
+                            <div class="ringtoneName">
+                                <h2><a href="{{ringtone.page.get_public_url}}">{{ringtone.name}}</a></h2>
+                            </div>
+                            <div class="download-info"><b>{{ringtone.download_count|number_system}}</b> - Downloads</div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pagination">
+        <span>
+            <div style="text-align:left;">
+                {% if page.has_previous %}
+                    <a href="?page=1">&laquo; First</a>
+                    <a href="?page={{ page.previous_page_number }}">&lt;&lt;Left</a>
+                {% endif %}
+            </div>
+            <center>
+                <span class="current">
+                    {% for page_object in page.paginator %}
+                        <a href="?page={{ page_object.number }}">   
+                            {% if page_object.number is page.number %}
+                                <b>{{ page_object.number }}</b>
+                            {% else %}
+                                {{ page_object.number }}
+                            {% endif %}                            
+                        </a>
+                    {% endfor %}
+                </span>
+            </center>
+
+            <div style="text-align:right;">
+                {% if page.has_next %}
+                    <a href="?page={{ page.next_page_number }}">&gt;&gt;Next</a>
+                    <a href="?page={{ page.paginator.num_pages }}">Last &raquo;</a>
+                {% endif %}
+            </div>
+        </span>
+    </div>
+    {% if site_config.ads_script %}
+    <div class="container">
+        <div class="ad-container">
+            {{site_config.ads_script|safe}}
+        </div>
+    </div>
+    {% endif %}
+</div>

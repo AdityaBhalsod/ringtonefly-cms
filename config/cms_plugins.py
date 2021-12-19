@@ -1,6 +1,9 @@
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 from django.utils.translation import ugettext_lazy as _
+from django.core.paginator import InvalidPage, Paginator
+from django.http import Http404
+
 
 from .models import (
     AboutUsPlugin,
@@ -17,7 +20,6 @@ from .models import (
     SingleRingtonePlugin,
     Top50Admin,
 )
-
 
 @plugin_pool.register_plugin
 class Container(CMSPluginBase):
@@ -110,17 +112,51 @@ class FetchRingtone(CMSPluginBase):
     render_template = "all_ringtone_panel.html"
     cache = False
 
+    def paginate_queryset(self, page, queryset, page_size):
+        paginator = Paginator(queryset, page_size)
+        try:
+            page_number = int(page)
+        except ValueError:
+            if page == "last":
+                page_number = paginator.num_pages
+            else:
+                raise Http404(
+                    _("Page is not “last”, nor can it be converted to an int.")
+                )
+        try:
+            page = paginator.page(page_number)
+            return paginator, page, page.object_list, page.has_next(), page.has_previous()
+        except InvalidPage as e:
+            raise Http404(
+                _("Invalid page (%(page_number)s): %(message)s")
+                % {"page_number": page_number, "message": str(e)}
+            )
+
+
     def render(self, context, instance, placeholder):
         try:
             limit = LimitationObject.objects.first()
-            pagination = limit.category_page
-        except Exception: 
-            pagination = 12
-        
+            pagination_number = limit.category_page
+        except Exception:
+            pagination_number = 12
+
+        page_number = context["request"].GET.get("page") or 1
+
         context = super(FetchRingtone, self).render(context, instance, placeholder)
-        context["current_category_ringtone"] = Ringtone.objects.filter(
+
+        queryset = Ringtone.objects.filter(
             category__slug=context["request"].current_page.get_slug()
-        ).order_by("-created_at")[0:pagination]
+        ).order_by("-created_at")
+
+        paginator, page, queryset, has_next, has_previous = self.paginate_queryset(
+            page_number, queryset, pagination_number
+        )
+
+        context["paginator"] = paginator
+        context["page"] = page
+        context["has_next"] = has_next
+        context["has_previous"] = has_previous
+        context["current_category_ringtone"] = queryset
         context["current_category_object"] = Category.objects.filter(
             slug=context["request"].current_page.get_slug()
         ).last()
@@ -130,11 +166,31 @@ class FetchRingtone(CMSPluginBase):
 @plugin_pool.register_plugin
 class Favorite(CMSPluginBase):
     model = FavoritePlugin
-    inlines = [Top50Admin]
     module = _("Common")
-    name = _("Home page ringtone")  # name of the plugin in the interface
-    render_template = "home_page_item.html"
+    inlines = [Top50Admin]
+    name = _("Common ringtone container")  # name of the plugin in the interface
+    render_template = "favorite.html"
     cache = False
+
+    def paginate_queryset(self, page, queryset, page_size):
+        paginator = Paginator(queryset, page_size)
+        try:
+            page_number = int(page)
+        except ValueError:
+            if page == "last":
+                page_number = paginator.num_pages
+            else:
+                raise Http404(
+                    _("Page is not “last”, nor can it be converted to an int.")
+                )
+        try:
+            page = paginator.page(page_number)
+            return paginator, page, page.object_list, page.has_next(), page.has_previous()
+        except InvalidPage as e:
+            raise Http404(
+                _("Invalid page (%(page_number)s): %(message)s")
+                % {"page_number": page_number, "message": str(e)}
+            )
 
     def render(self, context, instance, placeholder):
         try:
@@ -147,21 +203,21 @@ class Favorite(CMSPluginBase):
             new_pagination = 12
             top50_pagination = 12
 
+        page_number = context["request"].GET.get("page") or 1
 
         context = super(Favorite, self).render(context, instance, placeholder)
 
-        ringtone_objects = Ringtone.objects.all()
-
-        context["popular_ringtones"] = ringtone_objects.order_by("-download_count")[
-            0:popular_pagination
-        ]
-        context["new_ringtones"] = ringtone_objects.order_by("-created_at")[
-            0:new_pagination
-        ]
-        context["top50"] = instance.top50_field.all()[0:top50_pagination]
-
+        queryset = Ringtone.objects.all().order_by("-created_at")
+        paginator, page, queryset, has_next, has_previous = self.paginate_queryset(
+            page_number, queryset, top50_pagination
+        )
+        context["paginator"] = paginator
+        context["page"] = page
+        context["has_next"] = has_next
+        context["has_previous"] = has_previous
         return context
 
+        
 
 @plugin_pool.register_plugin
 class SingleFavorite(CMSPluginBase):
@@ -175,7 +231,7 @@ class SingleFavorite(CMSPluginBase):
         try:
             limit = LimitationObject.objects.first()
             pagination = limit.individual_ringtone_page
-        except Exception: 
+        except Exception:
             pagination = 12
 
         context = super(SingleFavorite, self).render(context, instance, placeholder)
