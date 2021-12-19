@@ -511,6 +511,13 @@ class LinkModelAdmin(BaseAdminStackLine):
 
 ############################################################################################
 class FavoritePlugin(CMSPlugin):
+    CONTAINER_TYPE = (
+        (1, _('New')),
+        (2, _('Popular')),
+        (3, _('Top50')),
+    )
+    ringtone_type = models.IntegerField(verbose_name=_("Ringtone type of container"),choices=CONTAINER_TYPE, default=1)
+
     def copy_relations(self, oldinstance):
         for instance in oldinstance.top50_field.all().order_by("id"):
             instance.pk = None

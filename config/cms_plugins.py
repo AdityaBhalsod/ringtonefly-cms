@@ -19,6 +19,7 @@ from .models import (
     SingleFavoritePlugin,
     SingleRingtonePlugin,
     Top50Admin,
+    Top50
 )
 
 @plugin_pool.register_plugin
@@ -205,11 +206,29 @@ class Favorite(CMSPluginBase):
 
         page_number = context["request"].GET.get("page") or 1
 
-        context = super(Favorite, self).render(context, instance, placeholder)
+        final_pagination = 12
+        queryset = Ringtone.objects.none()
+        
+        # new
+        if instance.ringtone_type == 1:
+            final_pagination = new_pagination
+            queryset = Ringtone.objects.all().order_by("-created_at")
 
-        queryset = Ringtone.objects.all().order_by("-created_at")
+        # popular
+        elif instance.ringtone_type == 2:
+            final_pagination = popular_pagination
+            queryset = Ringtone.objects.all().order_by("-download_count")            
+
+        # top 50
+        elif instance.ringtone_type == 3:
+            final_pagination = top50_pagination
+            top50 = Top50.objects.values_list("ringtone__id",flat=True)[::1]
+            if top50:
+                queryset = Ringtone.objects.filter(id__in=top50).order_by("-created_at")
+            
+        context = super(Favorite, self).render(context, instance, placeholder)
         paginator, page, queryset, has_next, has_previous = self.paginate_queryset(
-            page_number, queryset, top50_pagination
+            page_number, queryset, final_pagination
         )
         context["paginator"] = paginator
         context["page"] = page
