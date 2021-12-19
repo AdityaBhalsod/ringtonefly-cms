@@ -24,7 +24,7 @@ def audio_iphone_file_extension_validator():
 
 
 def favicon_extension_validator():
-    return [FileExtensionValidator(allowed_extensions=["ico", "icos"])]
+    return [FileExtensionValidator(allowed_extensions=["ico", "icos", "png"])]
 
 
 def image_extension_validator():
