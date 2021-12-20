@@ -28,37 +28,35 @@
         </div>
         {% endfor %}
     </div>
+    <ul class="pagination" style="display:flex;text-align:center;margin-left: 36%;margin-right: 20%;">
+        {% if page.has_previous %}
+            <li style="padding:5px;"><a href="?page={{ page.previous_page_number }}"><i class="fa fa-chevron-left" aria-hidden="true"></i>&laquo; First</a></li>
+        {% else %}
+            <li style="padding:5px;" class="disabled"><span><i class="fa fa-chevron-left" aria-hidden="true"></i>&lt;Left</span></li>
+        {% endif %}
 
-    <div class="pagination">
-        <span>
-            <div style="text-align:left;">
-                {% if page.has_previous %}
-                    <a href="?page=1">&laquo; First</a>
-                    <a href="?page={{ page.previous_page_number }}">&lt;&lt;Left</a>
-                {% endif %}
-            </div>
-            <center>
-                <span class="current">
-                    {% for page_object in page.paginator %}
-                        <a href="?page={{ page_object.number }}">   
-                            {% if page_object.number is page.number %}
-                                <b>{{ page_object.number }}</b>
-                            {% else %}
-                                {{ page_object.number }}
-                            {% endif %}                            
-                        </a>
-                    {% endfor %}
-                </span>
-            </center>
+        {% if page.number|add:'-4' > 1 %}
+            <li style="padding:5px;"><a href="?page={{ page.number|add:'-5' }}">&hellip;</a></li>
+        {% endif %}
 
-            <div style="text-align:right;">
-                {% if page.has_next %}
-                    <a href="?page={{ page.next_page_number }}">&gt;&gt;Next</a>
-                    <a href="?page={{ page.paginator.num_pages }}">Last &raquo;</a>
-                {% endif %}
-            </div>
-        </span>
-    </div>
+        {% for i in page.paginator.page_range %}
+            {% if page.number == i %}
+                <li style="padding:5px;" class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+            {% elif i > page.number|add:'-5' and i < page.number|add:'5' %}
+                <li style="padding:5px;"><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page.paginator.num_pages > page.number|add:'4' %}
+            <li style="padding:5px;"><a href="?page={{ page.number|add:'5' }}">&hellip;</a></li>
+        {% endif %}
+
+        {% if page.has_next %}
+            <li style="padding:5px;"><a href="?page={{ page.next_page_number }}"><i class="fa fa-chevron-right" aria-hidden="true"></i>Next&gt;</a></li>
+        {% else %}
+            <li style="padding:5px;" class="disabled"><span><i class="fa fa-chevron-right" aria-hidden="true"></i>Last &raquo;</span></li>
+        {% endif %}
+    </ul>
 </div>
 <input id="categoryReletedRingtoneGetUrl" type="hidden" value="{% url 'category_releted_ringtone' %}"/>
 <input id="categoryReletedRingtoneGetSlug" type="hidden" value="{{ request.current_page.get_slug }}"/>

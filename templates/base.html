@@ -49,6 +49,18 @@
     <script src="{% static 'all.js' %}"></script>
     <script src="{% static 'load.js' %}"></script>   
     <script src="{% static 'audio.js' %}"></script>
+    <script>
+        document.getElementById("captchaFrom").addEventListener("submit",function(event){
+            var response = grecaptcha.getResponse();
+            if(response.length == 0) { 
+                //reCaptcha not verified
+                alert("please verify you are humann!"); 
+                event.preventDefault();
+                return false;
+            }
+        });
+    </script>
+
 
     {% if site_config and site_config.bottem_ads_script %}
     <div id="_adBottom">

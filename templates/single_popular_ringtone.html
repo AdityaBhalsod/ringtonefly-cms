@@ -1,44 +1,14 @@
 {% load static helping_filter %}
 <div class="container3">
     <div class="post-in-popular">
-        <h2 class="pop">Popular Ringtone</h2>
+        <h2 class="pop">Related Ringtone</h2>
         <input id="singleRingtoneGetUrl" type="hidden" value="{% url 'individual_ringtone' %}"/>
-        {% if popular_ringtones %}
         <div class="ringtone-area" id="singlePopularRingtone">
-            {% for ringtone in popular_ringtones %}
-            <div class="ringtone-player">
-                <div class="play-btn">
-                    <i class="fa fa-play-circle"></i>
-                    <i class="fa fa-snowflake-o"></i>
-                    <span class="track">
-                        <audio id="audio" controls preload="none">
-                            {% if ringtone.android_ringtone_file %}
-                            <source src="{{ringtone.android_ringtone_file.url}}"
-                                type="audio/mpeg">
-                                {% elif ringtone and ringtone.iphone_ringtone_file %}
-                            <source src="{{ringtone.iphone_ringtone_file.url}}"
-                                type="audio/x-m4r">
-                            {% endif %}
-                        </audio>
-                    </span>
-                </div>
-                <div class="ringtone-info">
-                    <div class="categoryName"><a href="{{ringtone.category.page.get_public_url}}">{{ringtone.category.name}}</a>
-                    </div>
-                    <div class="ringtoneName">
-                        <h2><a href="{{ringtone.page.get_public_url}}">{{ringtone.name}}</a></h2>
-                    </div>
-                    <div class="download-info"><b>{{ringtone.download_count|number_system}}</b> - Downloads</div>
-                </div>
-            </div>
-            {% endfor %}
         </div>
-        {% endif %}
     </div>
-    {% if popular_ringtones %}
     <div class="loadm">
         <a href="javascript:void(0)" id="loadMoreSinglePopularRingtone"> Load More</a>
         <img src="{% static 'loading.gif' %}" id="loading" />
     </div>
-    {% endif %}
+    <input id="currentRingtoneGetSlug" type="hidden" value="{{ request.current_page.get_slug }}"/>
 </div>

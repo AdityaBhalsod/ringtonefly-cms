@@ -42,6 +42,38 @@ $(document).ready(function () {
 		</div>";
 	  return htmlContent;
   }
+
+  relatedRingtoneContent();
+
+  function relatedRingtoneContent () {
+      $('#loading').hide();
+      singlePopularRingtonePageCount++;
+      if (singlePopularRingtoneHasNext == true) {
+        $.ajax({
+          url:
+            $("#singleRingtoneGetUrl").val() + "?page=" + singlePopularRingtonePageCount + "&" + "name=" + $("#currentRingtoneGetSlug").val(),
+          dataType: "json",
+          type: "GET",
+          processData: !1,
+          beforeSend: function(){
+            $('#loading').show();
+          },
+          success: function (e) {
+            $('#loading').hide();
+            if (e) {
+              if (e.hasNext == false) {
+                $("#loadMoreSinglePopularRingtone").hide();
+                singlePopularRingtoneHasNext = e.hasNext;
+              }
+              if (e.content) {
+                $("#singlePopularRingtone").append(e.content);
+              }
+            }
+          },
+        });
+      }
+  }
+
   $("#loadMorePopularRingtone").click(function (e) {
     popularRingtonePageCount++;
     $('#loadingPopular').hide();
@@ -170,33 +202,6 @@ $(document).ready(function () {
     }
   });
   $("#loadMoreSinglePopularRingtone").click(function (e) {
-      $('#loading').hide();
-    singlePopularRingtonePageCount++;
-    if (singlePopularRingtoneHasNext == true) {
-      $.ajax({
-        url:
-          $("#singleRingtoneGetUrl").val() + "?page=" + singlePopularRingtonePageCount,
-        dataType: "json",
-        type: "GET",
-        processData: !1,
-        beforeSend: function(){
-          $('#loading').show();
-        },
-        success: function (e) {
-          $('#loading').hide();
-          if (e) {
-            if (e.hasNext == false) {
-              $("#loadMoreSinglePopularRingtone").hide();
-              singlePopularRingtoneHasNext = e.hasNext;
-            }
-            if (e.ringtoneObjects) {
-              $.each(e.ringtoneObjects, function (key, value) {
-                $("#singlePopularRingtone").append(ringtoneHtmlContent(value));
-              });
-            }
-          }
-        },
-      });
-    }
+      relatedRingtoneContent();
   });
 });

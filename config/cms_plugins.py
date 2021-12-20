@@ -247,16 +247,5 @@ class SingleFavorite(CMSPluginBase):
     cache = False
 
     def render(self, context, instance, placeholder):
-        try:
-            limit = LimitationObject.objects.first()
-            pagination = limit.individual_ringtone_page
-        except Exception:
-            pagination = 12
-
         context = super(SingleFavorite, self).render(context, instance, placeholder)
-        context["popular_ringtones"] = (
-            Ringtone.objects.all()
-            .exclude(slug=context["request"].current_page.get_slug())
-            .order_by("-download_count")[0:pagination]
-        )
         return context

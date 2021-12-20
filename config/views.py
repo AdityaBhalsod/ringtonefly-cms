@@ -1,9 +1,11 @@
 import json
+import random
 from datetime import datetime
+from itertools import chain
 
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.db.models import F
-from django.http import JsonResponse
+from django.db.models import F, Q
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
 
@@ -140,6 +142,49 @@ def ringtone_serialization(objects):
     return results
 
 
+def ringtone_html_serialization(objects):
+    results = ""
+    for ringtone in objects:
+        ringtone_file_url = (
+            ringtone.android_ringtone_file.url
+            if ringtone.android_ringtone_file
+            else ringtone.iphone_ringtone_file.url
+        )
+        file_format = "audio/mpeg" if ringtone.android_ringtone_file else "audio/x-m4r"        
+
+        results = (
+            results
+            + """<div class='ringtone-player'>\
+			<div class='play-btn'> \
+				<i class='fa fa-play-circle'></i>\
+				<i class='fa fa-snowflake-o'></i>\
+				<span class='track'>\
+					<audio id='audio' controls preload='none'>\
+						<source src='{0}' type='{1}'>\
+					</audio>\
+				</span>\
+			</div>\
+			<div class='ringtone-info'>\
+				<div class='categoryName'><a href='{2}'>{3}</a>\
+				</div>\
+				<div class='ringtoneName'>\
+					<h2><a href='{4}'>{5}</a></h2>\
+				</div>\
+				<div class='download-info'><b>{6}</b> - Downloads</div>\
+			</div>\
+		</div>""".format(
+                ringtone_file_url,
+                file_format,
+                ringtone.category.page.get_public_url(),
+                ringtone.category.name,
+                ringtone.page.get_public_url(),
+                ringtone.name,
+                numerize(ringtone.download_count),
+            )
+        )
+    return results
+
+
 @csrf_exempt
 def popular_ringtone(request):
     try:
@@ -200,22 +245,30 @@ def individual_ringtone(request):
     except Exception:
         individual_ringtone_page = 12
 
-    ringtone_objects = Ringtone.objects.all().order_by("-created_at")
-
-    if ringtone_objects:
-        paginator, page_number = set_paginator(
-            request=request, objects_list=ringtone_objects, page_size=individual_ringtone_page
+    query = request.GET.get("name", None)
+    
+    ringtone_object = Ringtone.objects.filter(slug=query).first()
+    if ringtone_object:
+        ringtone_objects_1 = Ringtone.objects.filter(category=ringtone_object.category).order_by("-created_at")
+        ringtone_objects_2 = Ringtone.objects.filter(~Q(category=ringtone_object.category)).order_by("-created_at")
+        final_objects = (ringtone_objects_1 | ringtone_objects_2).distinct()
+        paginator, _ = set_paginator(
+            request=request,
+            objects_list=final_objects,
+            page_size=individual_ringtone_page,
         )
         has_next_object = paginator.has_next()
-        results = ringtone_serialization(paginator.object_list)
+        final_objects_list = list(paginator.object_list)
+        random.shuffle(final_objects_list)
+        results = ringtone_html_serialization(final_objects_list)
         return JsonResponse(
             {
-                "ringtoneObjects": results,
-                "currentPageNumber": page_number,
+                "content": results,
                 "hasNext": has_next_object,
             }
         )
     return JsonResponse({})
+
 
 
 @csrf_exempt
@@ -283,7 +336,9 @@ def category_releted_ringtone(request):
 
     if ringtone_objects:
         paginator, page_number = set_paginator(
-            request=request, objects_list=ringtone_objects, page_size=category_page_pagination
+            request=request,
+            objects_list=ringtone_objects,
+            page_size=category_page_pagination,
         )
         has_next_object = paginator.has_next()
         results = ringtone_serialization(paginator.object_list)
