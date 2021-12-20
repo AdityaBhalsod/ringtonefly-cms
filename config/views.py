@@ -44,7 +44,7 @@ def contact_us(request):
 
 
 @csrf_exempt
-def rigntone_incress_download(request):
+def ringtone_incress_download(request):
     data = {}
     for key, _ in request.POST.items():
         data = json.loads(key)
@@ -103,11 +103,11 @@ def search_ringtone(request):
     )
 
 
-def set_paginator(request, objects_list):
+def set_paginator(request, objects_list, page_size):
     """
     Set paginator return context of paginator.
     """
-    paginator = Paginator(objects_list, 12)
+    paginator = Paginator(objects_list, page_size)
     page_number = request.GET.get("page", 1)
     try:
         instance_paginator = paginator.page(page_number)
@@ -148,13 +148,11 @@ def popular_ringtone(request):
     except Exception:
         popular_pagination = 12
 
-    ringtone_objects = Ringtone.objects.all().order_by("-download_count")[
-        popular_pagination:
-    ]
+    ringtone_objects = Ringtone.objects.all().order_by("-download_count")
 
     if ringtone_objects:
         paginator, page_number = set_paginator(
-            request=request, objects_list=ringtone_objects
+            request=request, objects_list=ringtone_objects, page_size=popular_pagination
         )
         has_next_object = paginator.has_next()
         results = ringtone_serialization(paginator.object_list)
@@ -176,11 +174,11 @@ def new_ringtone(request):
     except Exception:
         new_pagination = 12
 
-    ringtone_objects = Ringtone.objects.all().order_by("-created_at")[new_pagination:]
+    ringtone_objects = Ringtone.objects.all().order_by("-created_at")
 
     if ringtone_objects:
         paginator, page_number = set_paginator(
-            request=request, objects_list=ringtone_objects
+            request=request, objects_list=ringtone_objects, page_size=new_pagination
         )
         has_next_object = paginator.has_next()
         results = ringtone_serialization(paginator.object_list)
@@ -202,13 +200,11 @@ def individual_ringtone(request):
     except Exception:
         individual_ringtone_page = 12
 
-    ringtone_objects = Ringtone.objects.all().order_by("-created_at")[
-        individual_ringtone_page:
-    ]
+    ringtone_objects = Ringtone.objects.all().order_by("-created_at")
 
     if ringtone_objects:
         paginator, page_number = set_paginator(
-            request=request, objects_list=ringtone_objects
+            request=request, objects_list=ringtone_objects, page_size=individual_ringtone_page
         )
         has_next_object = paginator.has_next()
         results = ringtone_serialization(paginator.object_list)
@@ -230,11 +226,11 @@ def top_50_ringtone(request):
     except Exception:
         top50_pagination = 12
 
-    ringtone_objects = Top50.objects.all()[top50_pagination:]
+    ringtone_objects = Top50.objects.all()
 
     if ringtone_objects:
         paginator, page_number = set_paginator(
-            request=request, objects_list=ringtone_objects
+            request=request, objects_list=ringtone_objects, page_size=top50_pagination
         )
         has_next_object = paginator.has_next()
         results = []
@@ -283,11 +279,11 @@ def category_releted_ringtone(request):
 
     ringtone_objects = Ringtone.objects.filter(category__slug=category_slug).order_by(
         "-created_at"
-    )[category_page_pagination:]
+    )
 
     if ringtone_objects:
         paginator, page_number = set_paginator(
-            request=request, objects_list=ringtone_objects
+            request=request, objects_list=ringtone_objects, page_size=category_page_pagination
         )
         has_next_object = paginator.has_next()
         results = ringtone_serialization(paginator.object_list)

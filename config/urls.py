@@ -13,7 +13,7 @@ from .views import (
     new_ringtone,
     popular_ringtone,
     react,
-    rigntone_incress_download,
+    ringtone_incress_download,
     search_ringtone,
     top_50_ringtone,
 )
@@ -27,8 +27,8 @@ urlpatterns = [
     path("contact-us/submit/", contact_us, name="contact_us_submit"),
     path(
         "rigntone/download/",
-        rigntone_incress_download,
-        name="rigntone_incress_download",
+        ringtone_incress_download,
+        name="ringtone_incress_download",
     ),
     # ######## api v1 ########
     path("api/v1/popular-ringtone", popular_ringtone, name="popular_ringtone"),

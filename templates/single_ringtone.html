@@ -15,7 +15,7 @@
                 <h1>{{ringtone}}</h1>
             </div>
             <input type="hidden" id="ringtone_id" value="{{ringtone.pk}}">
-            <input type="hidden" id="incrementUrl" value="{% url 'rigntone_incress_download' %}">
+            <input type="hidden" id="incrementUrl" value="{% url 'ringtone_incress_download' %}">
             <input type="hidden" id="reactUrl" value="{% url 'react' %}">
             <script>
                 "{% if ringtone.android_ringtone_file %}"
