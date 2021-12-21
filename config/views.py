@@ -1,7 +1,6 @@
 import json
 import random
 from datetime import datetime
-from itertools import chain
 
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import F, Q
@@ -257,17 +256,11 @@ def individual_ringtone(request):
             objects_list=final_objects,
             page_size=individual_ringtone_page,
         )
-        has_next_object = paginator.has_next()
         final_objects_list = list(paginator.object_list)
         random.shuffle(final_objects_list)
         results = ringtone_html_serialization(final_objects_list)
-        return JsonResponse(
-            {
-                "content": results,
-                "hasNext": has_next_object,
-            }
-        )
-    return JsonResponse({})
+        return HttpResponse(results)
+    return HttpResponse("")
 
 
 

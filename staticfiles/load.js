@@ -52,7 +52,7 @@ $(document).ready(function () {
         $.ajax({
           url:
             $("#singleRingtoneGetUrl").val() + "?page=" + singlePopularRingtonePageCount + "&" + "name=" + $("#currentRingtoneGetSlug").val(),
-          dataType: "json",
+          dataType: "html",
           type: "GET",
           processData: !1,
           beforeSend: function(){
@@ -61,12 +61,10 @@ $(document).ready(function () {
           success: function (e) {
             $('#loading').hide();
             if (e) {
-              if (e.hasNext == false) {
-                $("#loadMoreSinglePopularRingtone").hide();
-                singlePopularRingtoneHasNext = e.hasNext;
-              }
-              if (e.content) {
-                $("#singlePopularRingtone").append(e.content);
+              if (e) {
+                $("#singlePopularRingtone").append(e);
+              } else {
+                  singlePopularRingtoneHasNext = false;
               }
             }
           },

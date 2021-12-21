@@ -43,12 +43,11 @@
     </div>
     <ul class="pagination" style="display:flex;text-align:center;margin-left: 36%;margin-right: 20%;">
         {% if page.has_previous %}
-            <li style="padding:5px;"><a href="?page={{ page.previous_page_number }}"><i class="fa fa-chevron-left" aria-hidden="true"></i>&laquo; First</a></li>
-        {% else %}
-            <li style="padding:5px;" class="disabled"><span><i class="fa fa-chevron-left" aria-hidden="true"></i>&lt;Left</span></li>
+            <li style="padding:5px;"><a href="?page={{ page.previous_page_number }}"><i class="fa fa-chevron-left" aria-hidden="true"></i>&lt;Left</a></li>
         {% endif %}
 
         {% if page.number|add:'-4' > 1 %}
+            <li style="padding:5px;"><a href="?page=1">1</a></li>
             <li style="padding:5px;"><a href="?page={{ page.number|add:'-5' }}">&hellip;</a></li>
         {% endif %}
 
@@ -62,12 +61,11 @@
 
         {% if page.paginator.num_pages > page.number|add:'4' %}
             <li style="padding:5px;"><a href="?page={{ page.number|add:'5' }}">&hellip;</a></li>
+            <li style="padding:5px;"><a href="?page={{page.paginator.num_pages}}">{{page.paginator.num_pages}}</a></li>
         {% endif %}
 
         {% if page.has_next %}
             <li style="padding:5px;"><a href="?page={{ page.next_page_number }}"><i class="fa fa-chevron-right" aria-hidden="true"></i>Next&gt;</a></li>
-        {% else %}
-            <li style="padding:5px;" class="disabled"><span><i class="fa fa-chevron-right" aria-hidden="true"></i>Last &raquo;</span></li>
         {% endif %}
     </ul>
     {% if site_config.ads_script %}
