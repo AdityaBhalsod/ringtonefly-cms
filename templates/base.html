@@ -50,15 +50,18 @@
     <script src="{% static 'load.js' %}"></script>   
     <script src="{% static 'audio.js' %}"></script>
     <script>
-        document.getElementById("captchaFrom").addEventListener("submit",function(event){
-            var response = grecaptcha.getResponse();
-            if(response.length == 0) { 
-                //reCaptcha not verified
-                alert("please verify you are humann!"); 
-                event.preventDefault();
-                return false;
-            }
-        });
+        try {
+            document.getElementById("captchaFrom").addEventListener("submit",function(event){
+                var response = grecaptcha.getResponse();
+                if(response.length == 0) { 
+                    //reCaptcha not verified
+                    alert("please verify you are humann!"); 
+                    event.preventDefault();
+                    return false;
+                }
+            });
+        }
+        catch(err) {}
     </script>
 
 
