@@ -203,10 +203,10 @@ CMS_PLACEHOLDER_CONF = {}
 DATABASES: Dict[str, Dict[str, Union[str, int]]] = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "HOST": "localhost",
-        "NAME": "statxumt_ringtonefly",
-        "USER": "statxumt_ringtonefly",
-        "PASSWORD": "}4lu.1o};GJ7",
+        "HOST": "localhost",  # TODO: Pending to update
+        "NAME": "database_name",  # TODO: Pending to update
+        "USER": "username", # TODO: Pending to update
+        "PASSWORD": "password", # TODO: Pending to update
         "PORT": "3306",
         "CONN_MAX_AGE": 500,
         "ATOMIC_REQUESTS": True,
